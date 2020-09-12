@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(ir)
+project(carbon-ir)
 
 set(CMAKE_BUILD_TYPE Debug)
 
@@ -10,7 +10,7 @@ set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -s")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -s")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Os")
 
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address -pedantic -Wall") 
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address -pedantic -Wall -std=gnu++11") 
 
 string(TOUPPER "${CMAKE_BUILD_TYPE}" uppercase_CMAKE_BUILD_TYPE)
 if (uppercase_CMAKE_BUILD_TYPE STREQUAL "DEBUG")
@@ -18,8 +18,7 @@ if (uppercase_CMAKE_BUILD_TYPE STREQUAL "DEBUG")
     add_definitions(-DMODE_DEBUG)
 endif ()
 
-#add_definitions(-DSOURCE_DIR="\\"${CMAKE_CURRENT_SOURCE_DIR}\\"")
 include_directories(include)
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 
-add_executable(ir ${SOURCES})
+add_executable(carbon-ir ${SOURCES})
