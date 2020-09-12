@@ -1,0 +1,11 @@
+# 5
+function i32 main()
+{
+    %0 = i32 4
+    %1 = alloca i32 %0
+    %2 = i32 5
+    store i32* %1 %2        # store in %1 the value %2
+
+    %3 = load i32* %1
+    return i32 %3
+}

@@ -1,0 +1,15 @@
+# 5
+function i32 main()
+{
+    %0 = i32 4
+    %1 = i32 4
+    
+    jmp sike
+    %3 = cmp eq i32 %0 %1
+    jmp end
+sike:
+    %3 = i32 5
+
+end:
+    return i32 %3
+}

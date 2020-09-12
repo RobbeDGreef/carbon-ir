@@ -1,0 +1,14 @@
+# 4
+function i32 foo()
+{
+    %0 = i32 1
+    %1 = i32 3
+    %2 = add i32 %0 %1
+    return i32 %2
+}
+
+function i32 main()
+{
+    %0 = call i32 foo()
+    return i32 %0
+}

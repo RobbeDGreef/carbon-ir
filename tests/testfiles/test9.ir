@@ -1,0 +1,15 @@
+# 2
+function i32 main()
+{
+    %0 = i32 4
+    %1 = i32 4
+    
+    %3 = i32 2
+    jmpcond eq i32 %0 %1 label
+
+    %3 = i32 1
+
+label:
+    
+    return i32 %3
+}

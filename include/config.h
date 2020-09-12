@@ -1,0 +1,4 @@
+#pragma once
+
+#define FILE_TEMP_LIMIT 8
+#define SCANNER_IDENTIFIER_LIMMIT 512
