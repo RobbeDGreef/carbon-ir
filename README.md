@@ -20,3 +20,35 @@ Once you have the compiler you can just run `./test.sh` to run all tests
 at once and run `./test.sh testX` to run a specific test (change X to the 
 number of the test you want to run).
 
+## Example
+The carbon-ir language is a very simple and staticly typed.
+
+This function will add 1 and 5 together and return its result
+
+    function i32 main()
+    {
+        %0 = i32 1
+        %1 = i32 5
+        %2 = add i32 %0 %1
+        return i32 %2
+    }
+
+The C equivalent would then be:
+
+    int main()
+    {
+        return 1 + 5;
+    }
+
+However it could also very well be:
+
+    int main()
+    {
+        int x = 1;
+        int y = 5;
+        return x + y;
+    }
+
+As you can see when you compile C or any other language to carbon-ir 
+you don't have to worry about allocating variables and carbon will 
+handle all register allocation and spills for you.
