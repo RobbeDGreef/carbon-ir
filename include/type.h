@@ -1,5 +1,8 @@
 #pragma once
 
+#include <core.h>
+#include <config.h>
+
 class Type
 {
 private:
@@ -14,4 +17,17 @@ public:
     void setPtr(int ptr) { m_ptr = ptr; }
     Type() {}
     Type(int bytesize, bool isFloat=false) { m_byteSize = bytesize; m_isFloat = isFloat; }
+};
+
+class ArrayType
+{
+private:
+    int m_arrSize = -1;
+    Type m_type;
+
+public:
+    ArrayType(Type t, int amount) { m_type = t; m_arrSize = amount; }
+    int arrSize() { return m_arrSize; }
+    Type type() { return m_type; }
+    
 };
