@@ -187,3 +187,32 @@ void GeneratorX86::genCmp(Type t, int op, Register r1, Register r2, Register ret
     dbg_assert(op >= 0 && op <= CMPOPAMOUNT);
     writeInst("set" + m_cmpOps[op], registerToString(ret, m_loByteRegs));
 }
+
+static std::string byteSizeToNasmVar(int byteSize)
+{
+    switch (byteSize)
+    {
+    case 1: return "db";
+    case 2: return "dw";
+    case 4: return "dd";
+    case 8: return "dq";
+    default:
+        dbg_assert(0);
+        return "db";
+    }
+}
+
+void GeneratorX86::genGlobalVariable(std::string name, ArrayType t, std::vector<LARGEINT> init)
+{
+    std::string text = name + ":\n\t";
+    text += byteSizeToNasmVar(t.type().byteSize());
+
+    for (LARGEINT i : init)
+    {
+        text += " " + std::to_string(i);
+    }
+    
+    text += '\n';
+
+    insert(text, DATASECTION);
+}

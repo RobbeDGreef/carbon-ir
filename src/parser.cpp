@@ -372,21 +372,28 @@ std::vector<LARGEINT> Parser::parseArrayInit(int amount)
 
 void Parser::parse()
 {
-    m_scanner.scan();
-    while (1)
+    int tok;
+    while ((tok = m_scanner.scan().token()) != EOF)
     {
+        if (tok == Token::Types::FUNCTION)
+        {
         OpList statements = parseFunction();
-        //statements.lockRegisters();
         statements = m_optimizer.optimize(statements);
-        //statements = m_generator.preAnalyzeOptimize(statements);
         m_optimizer.assignRegisters(statements);
         m_generator.setRegList(statements.regList());
         dbg_call(statements.print();)
         m_generator.feedGenerate(statements);
         statements.destroy();
-
-        if (m_scanner.token().token() == EOF)
-            break;
+        }
+        else if (tok == Token::Types::GLOB)
+        {
+            std::string id = m_scanner.token().identifier();
+            m_scanner.scan();
+            m_scanner.match(Token::Types::EQUALSIGN);
+            ArrayType t = parseArrayType();
+            std::vector<LARGEINT> init = parseArrayInit(t.arrSize());
+            m_generator.genGlobalVariable(id, t, init);
+        }
     }
 
     m_generator.writeOutfile();

@@ -70,6 +70,7 @@ protected:
 
 public:
     void genFunction(Type t, std::string name);
+    void genGlobalVariable(std::string name, ArrayType t, std::vector<LARGEINT> init);
 
     int registerAmount() { return REGAMOUNT; }
     
