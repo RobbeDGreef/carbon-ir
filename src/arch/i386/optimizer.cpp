@@ -14,11 +14,9 @@ bool OptimizerX86::graphCheck(RegisterGraph &graph)
             OpList tmp = graph.statements();
             int tosearch = i;
             int line = 0;
-            int prevOp = -1;
             for (OpQuad *quad : tmp)
             {
-                dbg_print("op: " << quad->operation());
-                if (quad->operation() != OpQuad::Types::INTLIT && prevOp != OpQuad::Types::SPILLLOAD && quad->operation() != OpQuad::Types::SPILLSTORE && quad->operation() != OpQuad::Types::SPILLLOAD)
+                if (quad->operation() != OpQuad::Types::INTLIT && quad->operation() != OpQuad::Types::SPILLSTORE && quad->operation() != OpQuad::Types::SPILLLOAD)
                 {
                     if (quad->arg1() == tosearch)
                     {
@@ -51,7 +49,6 @@ bool OptimizerX86::graphCheck(RegisterGraph &graph)
                     }
                 }
                 line++;
-                prevOp = quad->operation();
             }
         }
     }
