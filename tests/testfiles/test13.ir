@@ -1,0 +1,9 @@
+# 6
+
+@glob1 = [i32 1] 6
+
+function i32 main()
+{
+    %0 = load i32* @glob1
+    return i32 %0
+}
