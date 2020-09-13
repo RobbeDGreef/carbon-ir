@@ -96,12 +96,12 @@ void RegisterGraph::spillLongestLiving(RegisterNode *node)
 
 void RegisterGraph::color()
 {
-    auto i = m_list.begin();
-    (*i)->reg()->setHintReg(0);
-
-    for (++i; i != m_list.end(); ++i)
+    for (auto i = m_list.begin(); i != m_list.end(); ++i)
     {
         RegisterNode *node = *i;
+
+        if (node->reg()->spilled())
+            continue;
 
         // Mark the used colors
         for (auto j = node->adj().begin(); j != node->adj().end(); ++j)
