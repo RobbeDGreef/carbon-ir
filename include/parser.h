@@ -34,6 +34,7 @@ private:
     OpQuad *parseCmp();
     OpList parseFunction();
     Type parseType();
+    ArrayType parseArrayType();
 
     int addRegister(int r, Type t);
 

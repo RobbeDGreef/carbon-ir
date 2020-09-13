@@ -32,6 +32,16 @@ Type Parser::parseType()
     return t;
 }
 
+ArrayType Parser::parseArrayType()
+{
+    m_scanner.match(Token::Types::LBRACKET);
+    Type t = parseType();
+    int amount = m_scanner.token().intValue();
+    m_scanner.match(Token::Types::INTLIT);
+    m_scanner.match(Token::Types::RBRACKET);
+    return ArrayType(t, amount);
+}
+
 /// @todo: this function is pretty useless you can just use a m_scanner.match() call
 int Parser::parsePrimary(Type t, bool shouldBeReg)
 {
