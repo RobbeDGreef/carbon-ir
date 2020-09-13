@@ -271,7 +271,7 @@ Token &Scanner::scan()
     case ':':
         m_token.setToken(Token::Types::COLON);
         break;
-        
+
     case '#':
         skipLine();
         dbg_print("skipped line");
@@ -291,6 +291,7 @@ Token &Scanner::scan()
             /// Also stores the string in scanner::m_lastIdentifier
             std::string id = scanIdentifier(c);
 
+            /// @todo: function names should not be scanned as keyword
             int tok = identifyKeyword(id);
             if (tok)
             {
