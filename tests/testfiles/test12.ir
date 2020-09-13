@@ -1,0 +1,14 @@
+# 6
+function i32 add_(i32 %0 i32 %1)
+{
+    %2 = add i32 %0 %1
+    return i32 %2
+}
+
+function i32 main()
+{
+    %0 = i32 1
+    %1 = i32 5
+    %2 = call i32 add_(%0 %1)
+    return i32 %2
+}
