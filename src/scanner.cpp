@@ -264,6 +264,14 @@ Token &Scanner::scan()
         m_token.setToken(Token::Types::RBRACE);
         break;
     
+    case '[':
+        m_token.setToken(Token::Types::LBRACKET);
+        break;
+    
+    case ']':
+        m_token.setToken(Token::Types::RBRACKET);
+        break;
+    
     case '*':   
         m_token.setToken(Token::Types::STAR);
         break;

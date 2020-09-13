@@ -15,8 +15,10 @@ static const char *TokenTypes[] =
     "function", "attribute", 
     "comma", "left parenthesis '('", "right parenthesis ')'", "equalsign", "newline",
     "left brace '{'", "right brace '}'", "star '*'", "colon ':'",
+    "left bracket '['", "right bracket ']'", 
     "i8", "i16", "i32", "i64",
-    "f32", "f64"
+    "f32", "f64",
+    "glob"
 };
 
 class Token
@@ -37,6 +39,7 @@ public:
         ATTRIBUTE, 
         COMMA, LPAREN, RPAREN, EQUALSIGN, NEWLINE,
         LBRACE, RBRACE, STAR, COLON,
+        LBRACKET, RBRACKET,
 
         I8, I16, I32, I64,
         F32, F64,
