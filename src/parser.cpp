@@ -101,7 +101,18 @@ OpQuad *Parser::parseFunctionCall()
     quad->setIdentifier(id);
 
     m_scanner.match(Token::Types::LPAREN);
-    m_scanner.match(Token::Types::RPAREN);
+    
+    std::vector<int> arguments;
+    /// @todo: if there is no rparen it will deadlock so fix that (maybe check for newline or something)
+    /// @todo: Check if the arguments are correct with the function called
+    while (m_scanner.token().token() != Token::Types::RPAREN)
+    {
+        arguments.push_back(m_scanner.token().intValue());
+        m_scanner.scan();
+    }
+    m_scanner.scan();
+
+    quad->setExtraArgs(arguments);
     return quad;
 }
 
@@ -204,9 +215,9 @@ OpQuad *Parser::parseJmpCond()
     int op = m_scanner.scan().token();
     m_scanner.scan();
     Type t = parseType();
-    int r1 = addRegister(m_scanner.token().intValue());
+    int r1 = addRegister(m_scanner.token().intValue(), t);
     m_scanner.match(Token::Types::REG);
-    int r2 = addRegister(m_scanner.token().intValue());
+    int r2 = addRegister(m_scanner.token().intValue(), t);
     m_scanner.match(Token::Types::REG);
 
     std::string id = m_scanner.token().identifier();
@@ -232,7 +243,7 @@ OpQuad *Parser::parseReturn()
     m_scanner.scan();
     Type type = parseType();
     OpQuad *quad = new OpQuad(OpQuad::Types::RETURN, type);
-    quad->setArg1(addRegister(parsePrimary(type, true)));
+    quad->setArg1(addRegister(parsePrimary(type, true), type));
     m_scanner.scan();
     return quad;
 }
