@@ -12,7 +12,7 @@ int RegisterList::lastReg()
 }
 
 
-int RegisterList::addRegister(int reg)
+int RegisterList::addRegister(int reg, Type type)
 {
     int i = 0;
     for (Register &r : *this)
@@ -22,7 +22,7 @@ int RegisterList::addRegister(int reg)
         i++;
     }
 
-    push_back(Register(reg));
+    push_back(Register(reg, type));
     return size() - 1;
 }
 

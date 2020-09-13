@@ -43,10 +43,10 @@ int Parser::parsePrimary(Type t, bool shouldBeReg)
     return tok.intValue();
 }
 
-int Parser::addRegister(int reg)
+int Parser::addRegister(int reg, Type t)
 {
     /// @todo: this function should probably be removed
-    return m_regList.addRegister(reg);
+    return m_regList.addRegister(reg, t);
 }
 
 OpQuad *Parser::parseBinOperator()
@@ -59,10 +59,10 @@ OpQuad *Parser::parseBinOperator()
     OpQuad *quad = new OpQuad(OpQuad::tokToOp(tok), type);
 
     /// @todo check if the left and right leaf even support the given type, otherwise error
-    quad->setArg1(addRegister(parsePrimary(type)));
+    quad->setArg1(addRegister(parsePrimary(type), type));
 
     m_scanner.scan();
-    quad->setArg2(addRegister(parsePrimary(type)));
+    quad->setArg2(addRegister(parsePrimary(type), type));
 
     m_scanner.scan();
     return quad;
@@ -79,7 +79,7 @@ OpQuad *Parser::parseAssign()
     if (!quad)
         g_errsys.syntaxError("unexpected operation after register assign");
     
-    quad->setReturn(addRegister(reg));
+    quad->setReturn(addRegister(reg, quad->type()));
 
     return quad;
 }
@@ -111,7 +111,7 @@ OpQuad *Parser::parseLoad()
     Type t = parseType();
     
     int r = m_scanner.token().intValue();
-    r = addRegister(r);
+    r = addRegister(r, t);
     m_scanner.match(Token::Types::REG);
 
     return new OpQuad(OpQuad::Types::LOAD, r, t);
@@ -124,11 +124,11 @@ OpQuad *Parser::parseStore()
 
     int r1 = m_scanner.token().intValue();
     m_scanner.match(Token::Types::REG);
-    r1 = addRegister(r1);
+    r1 = addRegister(r1, t);
     
     int r2 = m_scanner.token().intValue();
     m_scanner.match(Token::Types::REG);
-    r2 = addRegister(r2);
+    r2 = addRegister(r2, t);
     
     return new OpQuad(OpQuad::Types::STORE, r1, r2, -1, t);
 }
@@ -138,7 +138,7 @@ OpQuad *Parser::parseAlloca()
     m_scanner.scan();
     Type t = parseType();
     int r = m_scanner.match(Token::Types::REG).intValue();
-    return new OpQuad(OpQuad::Types::ALLOCA, addRegister(r), t);
+    return new OpQuad(OpQuad::Types::ALLOCA, addRegister(r, t), t);
 }
 
 OpQuad *Parser::parseJmp()
@@ -153,9 +153,9 @@ OpQuad *Parser::parseCmp()
     int op = m_scanner.scan().token();
     m_scanner.scan();
     Type t = parseType();
-    int r1 = addRegister(m_scanner.token().intValue());
+    int r1 = addRegister(m_scanner.token().intValue(), t);
     m_scanner.match(Token::Types::REG);
-    int r2 = addRegister(m_scanner.token().intValue());
+    int r2 = addRegister(m_scanner.token().intValue(), t);
     m_scanner.match(Token::Types::REG);
     
     OpQuad *quad = new OpQuad(OpQuad::Types::CMP, r1, r2, -1, t);

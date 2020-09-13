@@ -35,7 +35,7 @@ private:
     OpList parseFunction();
     Type parseType();
 
-    int addRegister(int r);
+    int addRegister(int r, Type t);
 
 public:
     Parser(Scanner &scan, Generator &gen, Optimizer &opt);

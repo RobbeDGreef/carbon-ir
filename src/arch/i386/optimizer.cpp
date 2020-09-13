@@ -23,7 +23,7 @@ bool OptimizerX86::graphCheck(RegisterGraph &graph)
                     if (quad->arg1() == tosearch)
                     {
                         flag = true;
-                        int last = graph.statements().regList().addRegister(graph.statements().regList().lastReg() + 1);
+                        int last = graph.statements().regList().addRegister(graph.statements().regList().lastReg() + 1, quad->type());
                         graph.statements().insert(line, new OpQuad(OpQuad::Types::SPILLLOAD, tosearch, -1, last, quad->type()));
                         graph.statements().regList()[last].setLastOcc(line + 1);
                         quad->setArg1(last);
@@ -33,7 +33,7 @@ bool OptimizerX86::graphCheck(RegisterGraph &graph)
                     if (quad->arg2() == tosearch)
                     {
                         flag = true;
-                        int last = graph.statements().regList().addRegister(graph.statements().regList().lastReg() + 1);
+                        int last = graph.statements().regList().addRegister(graph.statements().regList().lastReg() + 1, quad->type());
                         graph.statements().insert(line, new OpQuad(OpQuad::Types::SPILLLOAD, tosearch, -1, last, quad->type()));
                         graph.statements().regList()[last].setLastOcc(line + 1);
                         quad->setArg2(last);
@@ -43,7 +43,7 @@ bool OptimizerX86::graphCheck(RegisterGraph &graph)
                     if (quad->ret() == tosearch && tmp[line + 1]->operation() != OpQuad::Types::SPILLSTORE)
                     {
                         flag = true;
-                        int last = graph.statements().regList().addRegister(graph.statements().regList().lastReg() + 1);
+                        int last = graph.statements().regList().addRegister(graph.statements().regList().lastReg() + 1, quad->type());
                         graph.statements().insert(line + 1, new OpQuad(OpQuad::Types::SPILLSTORE, last, -1, tosearch, quad->type()));
                         graph.statements().regList()[last].setFirstOcc(line);
                         quad->setReturn(last);

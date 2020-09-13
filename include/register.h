@@ -1,10 +1,12 @@
 #pragma once
 
+#include <type.h>
 #include <core.h>
 
 class Register
 {
 private:
+    Type m_type;
     int m_virt = -1;
 
     int m_firstOcc = -1;
@@ -15,8 +17,8 @@ private:
     int m_hintSpill = -1;
 
 public:
-    Register(int virt) { m_virt = virt; }
-    Register() {}
+    Register(int virt, Type t) { m_virt = virt; m_type = t; }
+    Register(Type t) { m_type = t;}
 
     int virt() { return m_virt; }
     int hintReg() { return m_hintReg; }
@@ -46,6 +48,6 @@ private:
 public:
     int findReg(int r);
     int lastReg();
-    int addRegister(int r);
+    int addRegister(int r, Type t);
     int spillCount();
 };
