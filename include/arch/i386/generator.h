@@ -2,6 +2,8 @@
 
 #include <generator.h>
 
+#define DATASECTION 1
+
 enum
 {
     EAX,
