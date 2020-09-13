@@ -32,6 +32,7 @@ public:
         LABEL,
         DESTROYREG,
         SPILL, SPILLLOAD, SPILLSTORE,
+        GLOB,
 
         ASSIGN
     };

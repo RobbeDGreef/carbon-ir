@@ -94,10 +94,24 @@ OpQuad *Parser::parseAssign()
     return quad;
 }
 
-OpQuad *Parser::parseIntlit()
+OpQuad *Parser::parseInitialize()
 {
     Type t = parseType();
-    return new OpQuad(OpQuad::Types::INTLIT, m_scanner.scan().intValue(), t);
+    
+    OpQuad *quad;
+    if (m_scanner.token().token() == Token::Types::INTLIT)
+        quad = new OpQuad(OpQuad::Types::INTLIT, m_scanner.token().intValue(), t);
+
+    else if (m_scanner.token().token() == Token::Types::GLOB)
+    {
+        quad = new OpQuad(OpQuad::Types::GLOB, t);
+        quad->setIdentifier(m_scanner.token().identifier());
+    }
+    else
+        g_errsys.syntaxError("expected a integer literal or a global variable identifier");
+
+    m_scanner.scan();
+    return quad;
 }
 
 OpQuad *Parser::parseFunctionCall()
@@ -214,7 +228,7 @@ OpQuad *Parser::parseOperation()
     case Token::Types::I16:
     case Token::Types::I32:
     case Token::Types::I64:
-        return parseIntlit();
+        return parseInitialize();
     
     case Token::Types::CALL:
         return parseFunctionCall();
@@ -227,6 +241,7 @@ OpQuad *Parser::parseOperation()
     
     case Token::Types::CMP:
         return parseCmp();
+    
 
     }
 
@@ -394,6 +409,10 @@ void Parser::parse()
             ArrayType t = parseArrayType();
             std::vector<LARGEINT> init = parseArrayInit(t.arrSize());
             m_generator.genGlobalVariable(id, t, init);
+        }
+        else if (tok == Token::Types::EXTERN)
+        {
+            
         }
     }
 

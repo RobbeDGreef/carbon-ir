@@ -221,4 +221,10 @@ void GeneratorX86::genSetupFile()
 {
     write("section .data");
     write("section .text");
+    write("[extern printf]");
+}
+
+void GeneratorX86::genGlobLoad(Type t, std::string glob, Register ret)
+{
+    writeMov(registerToString(ret), glob);
 }

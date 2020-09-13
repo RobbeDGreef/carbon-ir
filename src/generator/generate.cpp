@@ -10,6 +10,10 @@ void Generator::generate(OpQuad *op)
         genIntlitLoad(op->type(), op->arg1(), findReg(op->ret()));
         break;
 
+    case OpQuad::Types::GLOB:
+        genGlobLoad(op->type(), op->identifier(), findReg(op->ret()));
+        break;
+
     case OpQuad::Types::MUL:
         genMul(op->type(), findReg(op->arg1()), findReg(op->arg2()), findReg(op->ret()));
         break;

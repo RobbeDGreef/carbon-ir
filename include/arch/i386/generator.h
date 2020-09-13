@@ -48,6 +48,7 @@ private:
 
 protected:
     void genIntlitLoad(Type t, int val, Register ret);
+    void genGlobLoad(Type t, std::string glob, Register ret);
     void genMul(Type t, Register r1, Register r2, Register ret);
     void genAdd(Type t, Register r1, Register r2, Register ret);
     void genSub(Type t, Register r1, Register r2, Register ret);

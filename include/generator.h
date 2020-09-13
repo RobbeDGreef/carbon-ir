@@ -22,6 +22,7 @@ protected:
     /// All of these next functions MUST be overriden in the architecture
     /// dependant generator class
     virtual void genIntlitLoad(Type t, int val, Register ret) {}
+    virtual void genGlobLoad(Type t, std::string glob, Register ret) {}
     virtual void genMul(Type t, Register r1, Register r2, Register ret) {} 
     virtual void genAdd(Type t, Register r1, Register r2, Register ret) {} 
     virtual void genSub(Type t, Register r1, Register r2, Register ret) {} 

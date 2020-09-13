@@ -20,7 +20,7 @@ private:
     int parsePrimary(Type t, bool shouldBeReg = false);
     OpQuad *parseBinOperator();
     OpQuad *parseOperation();
-    OpQuad *parseIntlit();
+    OpQuad *parseInitialize();
     OpQuad *parseAssign();
     OpQuad *parseStatement();
     OpQuad *parseReturn();
