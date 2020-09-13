@@ -33,13 +33,18 @@ bool GeneratorX86::physInUse(int reg)
 std::string GeneratorX86::registerToString(Register r, std::string *list)
 {
     if (r.spilled())
-        return "[ebp-" + std::to_string(4 + 4 * r.hintSpill()) + "]";
+    {
+        if (r.hintSpill() >= 0)
+            return "[ebp-" + std::to_string(4 + 4 * r.hintSpill()) + "]";
+        else
+            return "[ebp+" + std::to_string(4 + (-r.hintSpill()) * 4) + "]";
+    }
 
     if (r.hintReg() != -1)
     {
         if (!list)
             list = m_registers;
-            
+
         return list[r.hintReg()];
     }
 
