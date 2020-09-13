@@ -342,6 +342,20 @@ OpList Parser::parseFunction()
     return statements;
 }
 
+std::vector<LARGEINT> Parser::parseArrayInit(int amount)
+{
+    std::vector<LARGEINT> init;
+
+    /// @todo @fixme: this might deadlock when this is the end of the file i guess
+    while (m_scanner.token().token() != Token::Types::NEWLINE)
+    {
+        init.push_back(m_scanner.token().intValue());
+        m_scanner.match(Token::Types::INTLIT);
+    }
+
+    return init;
+}
+
 void Parser::parse()
 {
     m_scanner.scan();

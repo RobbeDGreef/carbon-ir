@@ -35,6 +35,7 @@ private:
     OpList parseFunction();
     Type parseType();
     ArrayType parseArrayType();
+    std::vector<LARGEINT> parseArrayInit(int amount);
 
     int addRegister(int r, Type t);
 
