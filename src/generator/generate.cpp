@@ -59,7 +59,7 @@ void Generator::generate(OpQuad *op)
         if (op->arg1() == -1)
             genLoad(op->type(), op->identifier(), findReg(op->ret()));
         else
-        genLoad(op->type(), findReg(op->arg1()), findReg(op->ret()));
+            genLoad(op->type(), findReg(op->arg1()), findReg(op->ret()));
         break;
     
     case OpQuad::Types::JMPCOND:

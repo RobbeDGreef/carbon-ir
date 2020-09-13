@@ -16,6 +16,7 @@ protected:
     RegisterList m_regData;
     int m_opLine;
 
+
 protected:
     /// @todo: all of these functions should return nothing? and also arguments are useless now ay?
     /// All of these next functions MUST be overriden in the architecture
@@ -71,4 +72,5 @@ public:
 public:
     /// Helpers
     void write(std::string);
+    void insert(std::string, int line);
 };

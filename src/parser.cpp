@@ -134,8 +134,8 @@ OpQuad *Parser::parseLoad()
     OpQuad *quad;
     if (m_scanner.token().token() == Token::Types::REG)
     {
-    int r = m_scanner.token().intValue();
-    r = addRegister(r, t);
+        int r = m_scanner.token().intValue();
+        r = addRegister(r, t);
         quad = new OpQuad(OpQuad::Types::LOAD, r, t);
     }
     else if (m_scanner.token().token() == Token::Types::GLOB)
@@ -235,7 +235,6 @@ OpQuad *Parser::parseOperation()
 
 OpQuad *Parser::parseJmpCond()
 {
-    
     int op = m_scanner.scan().token();
     m_scanner.scan();
     Type t = parseType();
@@ -379,13 +378,13 @@ void Parser::parse()
     {
         if (tok == Token::Types::FUNCTION)
         {
-        OpList statements = parseFunction();
-        statements = m_optimizer.optimize(statements);
-        m_optimizer.assignRegisters(statements);
-        m_generator.setRegList(statements.regList());
-        dbg_call(statements.print();)
-        m_generator.feedGenerate(statements);
-        statements.destroy();
+            OpList statements = parseFunction();
+            statements = m_optimizer.optimize(statements);
+            m_optimizer.assignRegisters(statements);
+            m_generator.setRegList(statements.regList());
+            dbg_call(statements.print();)
+            m_generator.feedGenerate(statements);
+            statements.destroy();
         }
         else if (tok == Token::Types::GLOB)
         {

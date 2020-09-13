@@ -233,6 +233,7 @@ Token &Scanner::scan()
     switch (c)
     {
     case ',':
+        /// @todo: I don't think we ever use comma's anymore so this can probably be removed
         m_token.setToken(Token::Types::COMMA);
         break;
 
@@ -283,7 +284,7 @@ Token &Scanner::scan()
     case '#':
         skipLine();
         return scan();
-
+    
     case '@':
         m_token.set(Token::Types::GLOB, scanIdentifier(c));
         break;
@@ -311,11 +312,10 @@ Token &Scanner::scan()
             }
             
             m_token.set(Token::Types::IDENTIFIER, id);
-            
             break;
         }
     }
-    
-    m_token.print();
+
+    dbg_call(m_token.print());
     return m_token;
 }
