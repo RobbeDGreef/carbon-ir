@@ -205,11 +205,11 @@ static std::string byteSizeToNasmVar(int byteSize)
 void GeneratorX86::genGlobalVariable(std::string name, ArrayType t, std::vector<LARGEINT> init)
 {
     std::string text = name + ":\n\t";
-    text += byteSizeToNasmVar(t.type().byteSize());
+    text += byteSizeToNasmVar(t.type().byteSize()) + " ";
 
     for (LARGEINT i : init)
     {
-        text += " " + std::to_string(i);
+        text += std::to_string(i) + ", ";
     }
     
     text += '\n';
