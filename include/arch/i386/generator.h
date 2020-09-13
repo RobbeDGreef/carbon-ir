@@ -56,6 +56,7 @@ protected:
     void genAlloca(Type t, Register r, Register ret);
     void genStore(Type t, Register r1, Register r2);
     void genLoad(Type t, Register r, Register ret);
+    void genLoad(Type t, std::string glob, Register ret);
     
     void genFunctionCall(Type t, std::string function, Register ret, std::vector<Register> args);
     void genSpillLoad(Type t, Register r, Register ret);

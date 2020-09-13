@@ -31,6 +31,7 @@ protected:
     virtual void genAlloca(Type t, Register r, Register ret) {}
     virtual void genStore(Type t, Register r1, Register r2) {}
     virtual void genLoad(Type t, Register r, Register ret) {}
+    virtual void genLoad(Type t, std::string glob, Register ret) {}
     virtual void genSpillLoad(Type t, Register r, Register ret) {}
     virtual void genSpillStore(Type t, Register r, Register ret) {}
     virtual void genFunctionCall(Type t, std::string function, Register ret, std::vector<Register> args) {}

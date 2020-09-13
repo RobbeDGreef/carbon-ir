@@ -158,6 +158,11 @@ void GeneratorX86::genLoad(Type t, Register r, Register ret)
     writeInst("mov", registerToString(ret), "[" + registerToString(r) + "]");
 }
 
+void GeneratorX86::genLoad(Type t, std::string glob, Register ret)
+{
+    writeInst("mov", registerToString(ret), "[" + glob + "]");
+}
+
 void GeneratorX86::genJmpCond(Type t, int op, Register r1, Register r2, std::string label)
 {
     writeInst("cmp", registerToString(r1), registerToString(r2));

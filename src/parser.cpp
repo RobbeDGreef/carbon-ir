@@ -131,11 +131,25 @@ OpQuad *Parser::parseLoad()
     m_scanner.scan();
     Type t = parseType();
     
+    OpQuad *quad;
+    if (m_scanner.token().token() == Token::Types::REG)
+    {
     int r = m_scanner.token().intValue();
     r = addRegister(r, t);
-    m_scanner.match(Token::Types::REG);
+        quad = new OpQuad(OpQuad::Types::LOAD, r, t);
+    }
+    else if (m_scanner.token().token() == Token::Types::GLOB)
+    {
+        std::string id = m_scanner.token().identifier();
+        quad = new OpQuad(OpQuad::Types::LOAD, t);
+        quad->setIdentifier(id);
+    }
+    else
+        g_errsys.syntaxError("Expected either a register or a global variable identifier as an argument to load");
 
-    return new OpQuad(OpQuad::Types::LOAD, r, t);
+    m_scanner.scan();
+
+    return quad;
 }
 
 OpQuad *Parser::parseStore()

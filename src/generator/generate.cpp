@@ -56,7 +56,9 @@ void Generator::generate(OpQuad *op)
         break;
     
     case OpQuad::Types::LOAD:
-        dbg_print("arg1: " << op->arg1() << " ret: " << op->ret());
+        if (op->arg1() == -1)
+            genLoad(op->type(), op->identifier(), findReg(op->ret()));
+        else
         genLoad(op->type(), findReg(op->arg1()), findReg(op->ret()));
         break;
     
