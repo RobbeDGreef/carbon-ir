@@ -10,7 +10,7 @@ C_BLUE = "\033[34;1m"
 C_END = "\033[0m"
 
 testfolder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "testfiles")
-executable = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "ir")
+executable = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "carbon-ir")
 
 results = []
 

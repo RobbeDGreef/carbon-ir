@@ -2,5 +2,5 @@ cd build
 
 cmake ..
 make
-mv ir ../
+mv carbon-ir ../
 
