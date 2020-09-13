@@ -28,6 +28,11 @@ void Generator::write(std::string s)
     m_internalOutBuf.push_back(s);
 }
 
+void Generator::insert(std::string s, int line)
+{
+    m_internalOutBuf.insert(m_internalOutBuf.begin() + line, s);
+}
+
 void Generator::feedGenerate(OpList list)
 {
     m_opLine = 0;
