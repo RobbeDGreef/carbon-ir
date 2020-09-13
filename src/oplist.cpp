@@ -51,6 +51,13 @@ void OpList::updateRegisterLifetime(OpQuad *quad, int line)
     {
     case OpQuad::Types::INTLIT:
         break;
+    
+    case OpQuad::Types::CALL:
+        for (int r : quad->extraArgs())
+            m_list[r].setLastOcc(line);
+        
+        break;
+
     default:
         if (quad->arg1() != -1)
             m_list[quad->arg1()].setLastOcc(line);
