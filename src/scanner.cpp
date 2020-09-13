@@ -86,7 +86,7 @@ std::string Scanner::scanIdentifier(int c)
 
     for (int i = 0; i < SCANNER_IDENTIFIER_LIMMIT; i++)
     {
-        if (isalpha(c) || isdigit(c) || c == '_')
+        if (isalpha(c) || isdigit(c) || c == '_' || c == '@')
         {
             id += c;
             c = next();
@@ -274,8 +274,11 @@ Token &Scanner::scan()
 
     case '#':
         skipLine();
-        dbg_print("skipped line");
         return scan();
+
+    case '@':
+        m_token.set(Token::Types::GLOB, scanIdentifier(c));
+        break;
 
     case EOF:
         m_token.setToken(EOF);
