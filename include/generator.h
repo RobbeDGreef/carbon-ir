@@ -33,7 +33,7 @@ protected:
     virtual void genLoad(Type t, Register r, Register ret) {}
     virtual void genSpillLoad(Type t, Register r, Register ret) {}
     virtual void genSpillStore(Type t, Register r, Register ret) {}
-    virtual void genFunctionCall(Type t, std::string function, Register ret) {}
+    virtual void genFunctionCall(Type t, std::string function, Register ret, std::vector<Register> args) {}
     virtual void genReturn(Type t, Register ret) {}
     virtual void genJmpCond(Type t, int op, Register r1, Register r2, std::string label) {}
     virtual void genLabel(std::string label) {}

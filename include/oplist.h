@@ -41,7 +41,11 @@ private:
     int m_arg1 = -1;
     int m_arg2 = -1;
     int m_return = -1;
+
+    /// @todo: doesn't this kinda break the name opQUAD
     int m_extra = -1;
+    std::vector<int> m_args;
+    
     Type m_type;
 
     std::string m_identifier;
@@ -57,6 +61,7 @@ public:
     int arg2() { return m_arg2; }
     int ret() { return m_return; }
     int extra() { return m_extra; }
+    std::vector<int> extraArgs() { return m_args; }
     Type type() { return m_type; }
     std::string identifier() { return m_identifier; }
 
@@ -65,6 +70,7 @@ public:
     void setArg2(int r) { m_arg2 = r; }
     void setIdentifier(std::string s) { m_identifier = s; }
     void setExtra(int extra) { m_extra = extra; }
+    void setExtraArgs(std::vector<int> args) { m_args = args; }
 
     static int tokToOp(int tok);
 };

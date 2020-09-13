@@ -31,7 +31,12 @@ void Generator::generate(OpQuad *op)
         break;
 
     case OpQuad::Types::CALL:
-        genFunctionCall(op->type(), op->identifier(), findReg(op->ret()));
+        {
+            std::vector<Register> args;
+            for (int arg : op->extraArgs())
+                args.push_back(findReg(arg));
+            genFunctionCall(op->type(), op->identifier(), findReg(op->ret()), args);
+        }
         break;
 
     case OpQuad::Types::SPILLLOAD:
@@ -70,7 +75,7 @@ void Generator::generate(OpQuad *op)
     case OpQuad::Types::CMP:
         genCmp(op->type(), op->extra(), findReg(op->arg1()), findReg(op->arg2()), findReg(op->ret()));
         break;
-        
+
     case OpQuad::Types::RETURN:
         genReturn(op->type(), findReg(op->arg1()));
         break;

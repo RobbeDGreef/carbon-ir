@@ -101,7 +101,16 @@ void GeneratorX86::genSpillStore(Type t, Register r, Register ret)
     writeMov(registerToString(ret), registerToString(r));
 }
 
-void GeneratorX86::genFunctionCall(Type t, std::string id, Register ret)
+static bool isArg(std::vector<Register> args, int i)
+{
+    for (Register r : args)
+        if (r.hintReg() == i)
+            return true;
+    
+    return false;
+}
+
+void GeneratorX86::genFunctionCall(Type t, std::string id, Register ret, std::vector<Register> args)
 {
     /// @todo: spill all live registers
 
@@ -109,7 +118,7 @@ void GeneratorX86::genFunctionCall(Type t, std::string id, Register ret)
     bool regInUse[REGAMOUNT];
     for (int i = 0; i < REGAMOUNT; i++)
     {
-        if (physInUse(i) && i != ret.hintReg())
+        if (physInUse(i) && i != ret.hintReg() && !isArg(args, i))
         {
             regInUse[i] = true;
             writeInst("push", m_registers[i]);
@@ -118,7 +127,13 @@ void GeneratorX86::genFunctionCall(Type t, std::string id, Register ret)
             regInUse[i] = false;
     }
 
+    for (Register r : args)
+    {
+        writeInst("push", registerToString(r));
+    }
+
     writeInst("call", id);
+    writeInst("add", "esp", std::to_string(4 * args.size()));
     writeMov(registerToString(ret), "eax");
 
     // Pop all previously saved registers
