@@ -11,8 +11,8 @@ class Parser
 {
 private:
     Scanner &m_scanner;
-    Generator &m_generator;
-    Optimizer &m_optimizer;
+    Generator *m_generator;
+    Optimizer *m_optimizer;
 
     RegisterList m_regList;
 
@@ -40,6 +40,6 @@ private:
     int addRegister(int r, Type t);
 
 public:
-    Parser(Scanner &scan, Generator &gen, Optimizer &opt);
+    Parser(Scanner &scan, Generator *gen, Optimizer *opt);
     void parse();
 };

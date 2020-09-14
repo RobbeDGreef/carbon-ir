@@ -1,8 +1,10 @@
 #include <parser.h>
 
-Parser::Parser(Scanner &scan, Generator &gen, Optimizer &opt)
-    : m_scanner(scan), m_generator(gen), m_optimizer(opt)
+Parser::Parser(Scanner &scan, Generator *gen, Optimizer *opt)
+    : m_scanner(scan)
 {
+    m_generator = gen;
+    m_optimizer = opt;
 }
 
 Type Parser::parseType()
@@ -366,7 +368,7 @@ OpList Parser::parseFunction()
     m_scanner.scan();
 
     m_regList.clear();
-    m_generator.genFunction(t, fname);
+    m_generator->genFunction(t, fname);
     return statements;
 }
 
@@ -386,7 +388,7 @@ std::vector<LARGEINT> Parser::parseArrayInit(int amount)
 
 void Parser::parse()
 {
-    m_generator.genSetupFile();
+    m_generator->genSetupFile();
 
     int tok;
     while ((tok = m_scanner.scan().token()) != EOF)
@@ -394,11 +396,11 @@ void Parser::parse()
         if (tok == Token::Types::FUNCTION)
         {
             OpList statements = parseFunction();
-            statements = m_optimizer.optimize(statements);
-            m_optimizer.assignRegisters(statements);
-            m_generator.setRegList(statements.regList());
+            statements = m_optimizer->optimize(statements);
+            m_optimizer->assignRegisters(statements, m_generator);
+            m_generator->setRegList(statements.regList());
             dbg_call(statements.print();)
-            m_generator.feedGenerate(statements);
+            m_generator->feedGenerate(statements);
             statements.destroy();
         }
         else if (tok == Token::Types::GLOB)
@@ -408,7 +410,7 @@ void Parser::parse()
             m_scanner.match(Token::Types::EQUALSIGN);
             ArrayType t = parseArrayType();
             std::vector<LARGEINT> init = parseArrayInit(t.arrSize());
-            m_generator.genGlobalVariable(id, t, init);
+            m_generator->genGlobalVariable(id, t, init);
         }
         else if (tok == Token::Types::EXTERN)
         {
@@ -418,12 +420,12 @@ void Parser::parse()
             dbg_print("no");
             parseType();
             dbg_print("yes");
-            m_generator.genExternSymbol(m_scanner.token().identifier());
+            m_generator->genExternSymbol(m_scanner.token().identifier());
             m_scanner.scanUntil(Token::Types::RPAREN);
             m_scanner.scan();
         }
     }
 
-    m_generator.writeOutfile();
+    m_generator->writeOutfile();
     dbg_print("end");
 }
