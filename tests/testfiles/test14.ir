@@ -1,5 +1,6 @@
 # 6
 
+extern function i32 printf(i8*)
 @str = [i8 6] 104 101 108 108 111 10 0
 
 function i32 main()
@@ -7,4 +8,4 @@ function i32 main()
     %0 = i8* @str
     %1 = call i32 printf(%0)
     return i32 %1
-}
+}p
