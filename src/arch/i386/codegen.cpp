@@ -215,16 +215,21 @@ void GeneratorX86::genGlobalVariable(std::string name, ArrayType t, std::vector<
     text += '\n';
 
     insert(text, DATASECTION);
+    m_textSection++;
 }
 
 void GeneratorX86::genSetupFile()
 {
     write("section .data");
     write("section .text");
-    write("[extern printf]");
 }
 
 void GeneratorX86::genGlobLoad(Type t, std::string glob, Register ret)
 {
     writeMov(registerToString(ret), glob);
+}
+
+void GeneratorX86::genExternSymbol(std::string id)
+{
+    insert("[extern " + id + "]", m_textSection);
 }

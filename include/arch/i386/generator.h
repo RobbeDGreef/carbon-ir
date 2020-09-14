@@ -35,6 +35,7 @@ private:
     std::string m_loByteRegs[REGAMOUNT] = {"al", "bl", "cl", "dl"};
     std::string m_registers[REGAMOUNT] = {"eax", "ebx", "ecx", "edx" /*, "esi", "edi" */};
     std::string m_cmpOps[CMPOPAMOUNT] = {"e", "ne", "le", "l", "ge", "g"};
+    int m_textSection = DATASECTION + 1;
 
 private:
     void writeInst(std::string inst);
@@ -75,6 +76,7 @@ public:
     void genSetupFile();
     void genFunction(Type t, std::string name);
     void genGlobalVariable(std::string name, ArrayType t, std::vector<LARGEINT> init);
+    void genExternSymbol(std::string sym);
 
     int registerAmount() { return REGAMOUNT; }
     

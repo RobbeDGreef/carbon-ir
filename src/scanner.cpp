@@ -130,6 +130,8 @@ int Scanner::identifyKeyword(std::string id)
     case 'e':
         if (!id.compare("eq"))
             return Token::Types::EQ;
+        if (!id.compare("extern"))
+            return Token::Types::EXTERN;
         break;
 
     case 'f':

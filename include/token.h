@@ -12,7 +12,8 @@ static const char *TokenTypes[] =
     "return",
 
     "eq", "neq", "le", "l", "ge", "g",
-    "function", "attribute", 
+    "function", "extern", 
+    "attribute", 
     "comma", "left parenthesis '('", "right parenthesis ')'", "equalsign", "newline",
     "left brace '{'", "right brace '}'", "star '*'", "colon ':'",
     "left bracket '['", "right bracket ']'", 
@@ -34,7 +35,7 @@ public:
         RETURN,
 
         EQ, NEQ, LE, L, GE, G,
-        FUNCTION, 
+        FUNCTION, EXTERN,
 
         ATTRIBUTE, 
         COMMA, LPAREN, RPAREN, EQUALSIGN, NEWLINE,

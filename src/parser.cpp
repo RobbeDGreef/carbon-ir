@@ -412,7 +412,15 @@ void Parser::parse()
         }
         else if (tok == Token::Types::EXTERN)
         {
-            
+            /// @todo: actually parse extern functions and store them
+            m_scanner.scan();
+            m_scanner.match(Token::Types::FUNCTION);
+            dbg_print("no");
+            parseType();
+            dbg_print("yes");
+            m_generator.genExternSymbol(m_scanner.token().identifier());
+            m_scanner.scanUntil(Token::Types::RPAREN);
+            m_scanner.scan();
         }
     }
 
