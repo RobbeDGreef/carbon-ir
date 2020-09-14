@@ -9,6 +9,4 @@ protected:
     bool graphCheck(RegisterGraph &graph);
     void prepAssignRegisters(OpList &list);
 
-public:
-    OptimizerX86(Generator &gen) : Optimizer(gen) {}
 };

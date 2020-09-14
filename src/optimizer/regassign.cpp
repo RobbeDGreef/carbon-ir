@@ -152,13 +152,13 @@ void RegisterGraph::connect(int a, int b)
     m_list[b]->adj().push_back(m_list[a]);
 }
 
-void Optimizer::assignRegisters(OpList &list)
+void Optimizer::assignRegisters(OpList &list, Generator *gen)
 {
     // Call the preperation function
     prepAssignRegisters(list);
 
     // Build the graph and color it
-    RegisterGraph graph(m_generator.registerAmount(), list);
+    RegisterGraph graph(gen->registerAmount(), list);
 
     dbg_call(graph.show());
     graph.color();
