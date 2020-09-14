@@ -61,7 +61,7 @@ protected:
     void genStore(Type t, Register r1, Register r2);
     void genLoad(Type t, Register r, Register ret);
     void genLoad(Type t, std::string glob, Register ret);
-   
+
     void genFunctionCall(Type t, std::string function, Register ret, std::vector<Register> args);
     void genSpillLoad(Type t, Register r, Register ret);
     void genSpillStore(Type t, Register r, Register ret);
@@ -79,12 +79,11 @@ public:
     void genExternSymbol(std::string sym);
 
     int registerAmount() { return REGAMOUNT; }
-    
+
     /// This function is currently only used to subtract from esp in the beginning
     /// of code generation.
     void feedGenerate(OpList list);
 
 public:
-
     GeneratorX86(std::string outfile) : Generator(outfile) {}
 };
