@@ -10,6 +10,8 @@
 #include <arch/i386/optimizer.h>
 #include <arch/jvm/generator.h>
 #include <arch/jvm/optimizer.h>
+#include <arch/eZ80/generator.h>
+#include <arch/eZ80/optimizer.h>
 
 std::string genTemp()
 {
@@ -119,6 +121,13 @@ int main(int argc, char **argv)
             optimizer = new OptimizerJVM();
         }
         break;
+    
+    case 'e':
+        if (!machine.compare("eZ80"))
+        {
+            generator = new GeneratorEZ80(asmFile);
+            optimizer = new OptimizerEZ80();
+        }
     }
 
     if (generator == nullptr || optimizer == nullptr)
