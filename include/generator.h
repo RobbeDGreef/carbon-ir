@@ -51,7 +51,7 @@ public:
     virtual void genExternSymbol(std::string sym) {}
 
     virtual int registerAmount() { return 0; }
-
+    virtual bool shouldAllocateRegisters() { return true; }
 public:
     /// This is the base generate function, this can be overriden in the architecture
     /// dependant generator class but it is not required. Basically unless you need
