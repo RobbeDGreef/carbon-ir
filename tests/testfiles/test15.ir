@@ -8,4 +8,4 @@ function i32 main()
     %0 = i8* @str
     %1 = call i32 printf(%0)
     return i32 %1
-}p
+}
