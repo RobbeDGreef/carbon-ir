@@ -2,12 +2,12 @@
 
 std::string typeToJVM(Type t)
 {
-    return "I";
-
     switch (t.byteSize())
     {
-    case 1: return "B";
-    case 2: return "I";
+    case 1: return "C";
+    case 2: return "S";
+    case 4: return "I";
+    case 8: return "L";
     }
 }
 void GeneratorJVM::genIntlitLoad(Type t, int val, Register ret)
