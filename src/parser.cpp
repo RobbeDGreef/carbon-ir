@@ -391,7 +391,7 @@ std::vector<LARGEINT> Parser::parseArrayInit(int amount)
 
 void Parser::parse()
 {
-    m_generator->genSetupFile();
+    m_generator->genSetupFile(m_scanner.getFileName());
 
     int tok;
     while ((tok = m_scanner.scan().token()) != EOF)

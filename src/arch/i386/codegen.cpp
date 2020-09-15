@@ -218,7 +218,7 @@ void GeneratorX86::genGlobalVariable(std::string name, ArrayType t, std::vector<
     m_textSection++;
 }
 
-void GeneratorX86::genSetupFile()
+void GeneratorX86::genSetupFile(std::string file)
 {
     write("section .data");
     write("section .text");
