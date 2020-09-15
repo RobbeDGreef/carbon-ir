@@ -86,8 +86,8 @@ void GeneratorJVM::genFunction(Type t, Function f)
     method += + ")" + typeToJVM(f.retType());
 
     write(method);
-    write("\t.limit stack 10");
-    write("\t.limit locals 10");
+    write("\t.limit stack 25");
+    write("\t.limit locals 25");
 }
 void GeneratorJVM::genGlobalVariable(std::string name, ArrayType t, std::vector<LARGEINT> init) {}
 
