@@ -13,21 +13,47 @@ std::string typeToJVM(Type t)
 void GeneratorJVM::genIntlitLoad(Type t, int val, Register ret)
 {
     write("\tbipush " + std::to_string(val));
-    write("\tistore_" + std::to_string(ret.virt()));
+    write("\tistore " + std::to_string(ret.virt()));
 }
 void GeneratorJVM::genGlobLoad(Type t, std::string glob, Register ret) {}
 void GeneratorJVM::genMul(Type t, Register r1, Register r2, Register ret)
 {
-    write("\tiload_" + std::to_string(r1.virt()));
-    write("\tiload_" + std::to_string(r2.virt()));
-    write("\timul");
-    write("\tistore_" + std::to_string(ret.virt()));
+    writeInst("iload", r1.virt());
+    writeInst("iload", r2.virt());
+    writeInst("imul");
+    writeInst("istore", ret.virt());
 }
 
-void GeneratorJVM::genAdd(Type t, Register r1, Register r2, Register ret) {}
-void GeneratorJVM::genSub(Type t, Register r1, Register r2, Register ret) {}
-void GeneratorJVM::genDiv(Type t, Register r1, Register r2, Register ret) {}
-void GeneratorJVM::genMod(Type t, Register r1, Register r2, Register ret) {}
+void GeneratorJVM::genAdd(Type t, Register r1, Register r2, Register ret)
+{
+    writeInst("iload", r1.virt());
+    writeInst("iload", r2.virt());
+    writeInst("iadd");
+    writeInst("istore", ret.virt());
+}
+
+void GeneratorJVM::genSub(Type t, Register r1, Register r2, Register ret)
+{
+    writeInst("iload", r1.virt());
+    writeInst("iload", r2.virt());
+    writeInst("isub");
+    writeInst("istore", ret.virt());
+}
+void GeneratorJVM::genDiv(Type t, Register r1, Register r2, Register ret)
+{
+    writeInst("iload", r1.virt());
+    writeInst("iload", r2.virt());
+    writeInst("idiv");
+    writeInst("istore", ret.virt());
+}
+void GeneratorJVM::genMod(Type t, Register r1, Register r2, Register ret)
+{
+    writeInst("iload", r1.virt());
+    writeInst("iload", r2.virt());
+    writeInst("irem");
+    writeInst("istore", ret.virt());
+}
+
 void GeneratorJVM::genReg(Type t, Register r, Register ret) {}
 
 void GeneratorJVM::genAlloca(Type t, Register r, Register ret) {}
@@ -39,7 +65,7 @@ void GeneratorJVM::genSpillStore(Type t, Register r, Register ret) {}
 void GeneratorJVM::genFunctionCall(Type t, std::string function, Register ret, std::vector<Register> args) {}
 void GeneratorJVM::genReturn(Type t, Register ret)
 {
-    write("\tiload_" + std::to_string(ret.virt()));
+    write("\tiload " + std::to_string(ret.virt()));
     write("\tireturn");
     write(".end method");
 }
