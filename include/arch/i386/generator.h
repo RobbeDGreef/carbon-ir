@@ -4,30 +4,35 @@
 
 #define DATASECTION 1
 
-enum
+namespace x86
 {
-    EAX,
-    EBX,
-    ECX,
-    EDX,
-    // ESI,
-    // EDI,
+    enum
+    {
+        EAX,
+        EBX,
+        ECX,
+        EDX,
+        // ESI,
+        // EDI,
 
-    REGAMOUNT
-};
+        REGAMOUNT
+    };
 
-/// IDk if this is really necessary
-enum
-{
-    E,
-    NE,
-    LE,
-    L,
-    GE,
-    G,
+    /// IDk if this is really necessary
+    enum
+    {
+        E,
+        NE,
+        LE,
+        L,
+        GE,
+        G,
 
-    CMPOPAMOUNT
-};
+        CMPOPAMOUNT
+    };
+}
+
+using namespace x86;
 
 class GeneratorX86 : public Generator
 {
