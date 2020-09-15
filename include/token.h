@@ -19,7 +19,7 @@ static const char *TokenTypes[] =
     "left bracket '['", "right bracket ']'", 
     "i8", "i16", "i32", "i64",
     "f32", "f64",
-    "glob"
+    "glob", "string literal"
 };
 
 class Token
@@ -45,7 +45,7 @@ public:
         I8, I16, I32, I64,
         F32, F64,
 
-        GLOB,
+        GLOB, STRINGLIT,
 
         TOKAMOUNT
     };
