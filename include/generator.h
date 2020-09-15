@@ -50,8 +50,19 @@ public:
     virtual void genSetupFile(std::string file) {}
     virtual void genExternSymbol(std::string sym) {}
 
+    /// These functions are used to control carbon's register allocation system.
+    /// If you want carbon to allocate the registers for you, you must return
+    /// the amount of physical registers that you have available in the registerAmount()
+    /// function. If not, just return false from the shouldAllocateRegisters() function.
     virtual int registerAmount() { return 0; }
     virtual bool shouldAllocateRegisters() { return true; }
+
+    /// These two functions will need to implement the assembling and the linking
+    /// of the binary. If the assembler string is empty use the default assembler for
+    /// your platform, if it is not that means that an external assembler was specified
+    /// by the user. The same goes for the linker.
+    virtual int assemble(std::string infile, std::string outfile, std::string assembler) { return 0; }
+    virtual int link(std::string infile, std::string outfile, std::string linker) { return 0; }
 public:
     /// This is the base generate function, this can be overriden in the architecture
     /// dependant generator class but it is not required. Basically unless you need

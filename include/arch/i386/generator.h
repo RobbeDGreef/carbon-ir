@@ -80,6 +80,9 @@ public:
 
     int registerAmount() { return REGAMOUNT; }
 
+    int assemble(std::string infile, std::string outfile, std::string assembler);
+    int link(std::string infile, std::string outfile, std::string linker);
+
     /// This function is currently only used to subtract from esp in the beginning
     /// of code generation.
     void feedGenerate(OpList list);

@@ -71,3 +71,19 @@ void GeneratorX86::writeMov(std::string dest, std::string src)
     if (dest != src)
         writeInst("mov", dest, src);
 }
+
+int GeneratorX86::assemble(std::string infile, std::string outfile, std::string assembler)
+{
+    if (assembler != "")
+        return system((assembler + " -o " + outfile + " " + infile).c_str());
+
+    return system(("nasm -F dwarf -g -felf -o " + outfile + " " + infile).c_str());
+}
+
+int GeneratorX86::link(std::string infile, std::string outfile, std::string linker)
+{
+    if (linker != "")
+        return system((linker + " -o " + outfile + " " + infile).c_str());
+    
+    return system(("gcc -o " + outfile + " " + infile + " -m32").c_str());
+}

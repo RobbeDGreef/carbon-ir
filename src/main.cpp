@@ -125,24 +125,23 @@ int main(int argc, char **argv)
         parser.parse();
     }
 
-    delete generator;
-    delete optimizer;
-
+    /// @todo: I'm not proud of thess goto's
     if (f_onlyCompile)
-        return 0;
-    
-    int s = system((assembler + " -F dwarf -g -felf -o " + linkFile + " " + asmFile).c_str());
+        goto end;
 
-    if (s)
+    if (generator->assemble(asmFile, linkFile, assembler))
         g_errsys.fatal("failed to assemble binary");
 
     if (f_onlyAssemble)
-        return 0;
+        goto end;
 
-    s = system((linker + " -o " + outfile + " " + linkFile + " " + linkflags).c_str());
-
-    if (s)
+    if (generator->link(linkFile, outfile, linker))
         g_errsys.fatal("failed to link binary");
+
+end:
+    /// @todo: this might cause undefined behaviour, look into it
+    delete generator;
+    delete optimizer;
 
     return 0;
 }

@@ -37,6 +37,9 @@ public:
     int registerAmount() { return 0; }
     bool shouldAllocateRegisters() { return false; }
 
+    int assemble(std::string infile, std::string outfile, std::string assembler);
+    int link(std::string infile, std::string outfile, std::string linker);
+
 public:
     GeneratorJVM(std::string outfile) : Generator(outfile) {}
 };
