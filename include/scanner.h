@@ -8,6 +8,7 @@ class Scanner
 private:
     int m_putback = 0;
     FILE *m_infile = nullptr;
+    std::string m_infileName;
 
     Token m_token;
     Token m_prevToken;
@@ -35,4 +36,5 @@ public:
     Token &token() { return m_token; }
     Token &prevToken() { return m_prevToken; }
     std::string lastIdentifier() { return m_lastIdentifier; }
+    std::string getFileName() { return m_infileName; }
 };
