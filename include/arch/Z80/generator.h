@@ -2,7 +2,7 @@
 
 #include <generator.h>
 
-class GeneratorEZ80 : public Generator
+class GeneratorZ80 : public Generator
 {
 protected:
     void genIntlitLoad(Type t, int val, Register ret) {}
@@ -40,5 +40,5 @@ public:
     int link(std::string infile, std::string outfile, std::string linker) { return 0; }
 
 public:
-    GeneratorEZ80(std::string outfile) : Generator(outfile) {}
+    GeneratorZ80(std::string outfile) : Generator(outfile) {}
 };

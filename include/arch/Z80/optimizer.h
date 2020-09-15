@@ -3,7 +3,7 @@
 #include <optimizer/optimizer.h>
 #include <optimizer/reggraph.h>
 
-class OptimizerEZ80 : public Optimizer
+class OptimizerZ80 : public Optimizer
 {
 protected:
     // bool graphCheck(RegisterGraph &graph);
