@@ -76,3 +76,18 @@ void GeneratorJVM::genSetupFile(std::string filename)
 }
 
 void GeneratorJVM::genExternSymbol(std::string sym) {}
+
+void GeneratorJVM::writeInst(std::string inst, std::string op)
+{
+    write("\t" + inst + "\t" + op);
+}
+
+void GeneratorJVM::writeInst(std::string inst, int val)
+{
+    write("\t" + inst + "\t" + std::to_string(val));
+}
+
+void GeneratorJVM::writeInst(std::string inst)
+{
+    write("\t" + inst);
+}

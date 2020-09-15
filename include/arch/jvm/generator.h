@@ -4,6 +4,11 @@
 
 class GeneratorJVM : public Generator
 {
+private:
+    /// Helpers
+    void writeInst(std::string, std::string);
+    void writeInst(std::string, int);
+    void writeInst(std::string);
 
 protected:
     void genIntlitLoad(Type t, int val, Register ret);
