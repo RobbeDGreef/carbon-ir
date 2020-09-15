@@ -2,8 +2,34 @@
 
 #include <generator.h>
 
+enum
+{
+    BC,
+    DE,
+    HL,
+    
+    REGAMOUNT24
+};
+
+enum
+{
+    A,
+    B,
+    C,
+    D,
+    E,
+    H,
+    L,
+
+    REGAMOUNT8
+};
+
 class GeneratorZ80 : public Generator
 {
+private:
+    std::string m_registers24[REGAMOUNT24] = {"bc", "de", "hl"};
+    std::string m_registers8[REGAMOUNT8] = {"a", "b", "c", "d", "e", "h", "l"};
+
 protected:
     void genIntlitLoad(Type t, int val, Register ret) {}
     void genGlobLoad(Type t, std::string glob, Register ret) {}
@@ -33,7 +59,7 @@ public:
     void genSetupFile(std::string file) {}
     void genExternSymbol(std::string sym) {}
 
-    int registerAmount() { return 0; }
+    int registerAmount() { return REGAMOUNT24; }
     bool shouldAllocateRegisters() { return true; }
 
     int assemble(std::string infile, std::string outfile, std::string assembler) { return 0; }
