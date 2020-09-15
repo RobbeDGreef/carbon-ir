@@ -62,11 +62,15 @@ void GeneratorJVM::genLoad(Type t, Register r, Register ret) {}
 void GeneratorJVM::genLoad(Type t, std::string glob, Register ret) {}
 void GeneratorJVM::genSpillLoad(Type t, Register r, Register ret) {}
 void GeneratorJVM::genSpillStore(Type t, Register r, Register ret) {}
-void GeneratorJVM::genFunctionCall(Type t, std::string function, Register ret, std::vector<Register> args) {}
+void GeneratorJVM::genFunctionCall(Type t, std::string function, Register ret, std::vector<Register> args)
+{
+    writeInst("invokestatic", "Method " + m_className + " _" + function + " ()I");
+    writeInst("istore", ret.virt());
+}
 void GeneratorJVM::genReturn(Type t, Register ret)
 {
-    write("\tiload " + std::to_string(ret.virt()));
-    write("\tireturn");
+    writeInst("iload", ret.virt());
+    writeInst("ireturn");
     write(".end method");
 }
 void GeneratorJVM::genJmpCond(Type t, int op, Register r1, Register r2, std::string label) {}
