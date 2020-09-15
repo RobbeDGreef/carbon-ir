@@ -3,7 +3,6 @@
 
 void Generator::generate(OpQuad *op)
 {
-    dbg_print("operation: " << op->operation());
     switch (op->operation())
     {
     case OpQuad::Types::INTLIT:
