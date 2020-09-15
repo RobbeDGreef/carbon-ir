@@ -400,6 +400,7 @@ void Parser::parse()
         {
             OpList statements = parseFunction();
             statements = m_optimizer->optimize(statements);
+            if (m_generator->shouldAllocateRegisters())
             m_optimizer->assignRegisters(statements, m_generator);
             m_generator->setRegList(statements.regList());
             dbg_call(statements.print();)
