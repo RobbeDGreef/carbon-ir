@@ -30,13 +30,12 @@ int main(int argc, char **argv)
     int f_onlyCompile = 0;
     int f_onlyAssemble = 0;
     std::string outfile = "a.out";
-    std::string asmFile = genTemp() + ".S";
+    std::string asmFile = genTemp() + ".s";
     std::string linkFile = genTemp() + ".o";
     std::string machine = DEFAULT_MACHINE;
 
-    std::string assembler = "nasm";
-    std::string linker = "gcc";
-    std::string linkflags = "-m32";
+    std::string assembler = "";
+    std::string linker = "";
 
     Generator *generator = nullptr;
     Optimizer *optimizer = nullptr;
@@ -78,6 +77,14 @@ int main(int argc, char **argv)
         case 'm':
             machine = std::string(optarg);
             break;
+        
+        case 'a':
+            assembler = std::string(optarg);
+            break;
+        
+        case 'l':
+            linker = std::string(optarg);
+            break;
 
         default:
             g_errsys.fatal("usage: glu -o <OUTFILE> <INFILES>");
@@ -95,7 +102,6 @@ int main(int argc, char **argv)
     if (f_onlyAssemble)
         linkFile = outfile;
 
-    dbg_print("machine: '" << machine << "'");
     switch (machine[0])
     {
     case 'x':
@@ -109,7 +115,7 @@ int main(int argc, char **argv)
     case 'j':
         if (!machine.compare("jvm"))
         {
-            generator = new GeneratorJVM(asmFile);
+            generator = new GeneratorJVM(asmFile, outfile);
             optimizer = new OptimizerJVM();
         }
         break;
@@ -124,11 +130,11 @@ int main(int argc, char **argv)
         Parser parser = Parser(scanner, generator, optimizer);
         parser.parse();
     }
-
+ 
     /// @todo: I'm not proud of thess goto's
     if (f_onlyCompile)
         goto end;
-
+    
     if (generator->assemble(asmFile, linkFile, assembler))
         g_errsys.fatal("failed to assemble binary");
 
