@@ -1,0 +1,11 @@
+# 12
+
+extern function i32 printf(i8*)
+@str = [i8 13] "Hello world" 10 00
+
+function i32 main()
+{
+    %0 = i8* @str
+    %1 = call i32 printf(%0)
+    return i32 %1
+}p
