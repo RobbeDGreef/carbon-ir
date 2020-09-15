@@ -6,6 +6,7 @@
 #include <optimizer/optimizer.h>
 #include <type.h>
 #include <oplist.h>
+#include <function.h>
 
 class Parser
 {
@@ -15,6 +16,7 @@ private:
     Optimizer *m_optimizer;
 
     RegisterList m_regList;
+    std::vector<Function> m_functions;
 
 private:
     int parsePrimary(Type t, bool shouldBeReg = false);

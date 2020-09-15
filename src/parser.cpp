@@ -330,11 +330,14 @@ OpList Parser::parseFunction()
     m_scanner.match(Token::Types::IDENTIFIER);
     m_scanner.match(Token::Types::LPAREN);
     
+    m_functions.push_back(Function(fname, t));
+
     /// @todo: if there is no rparen it will deadlock so fix that (maybe check for newline or something)
     int spill = -1;
     while (m_scanner.token().token() != Token::Types::RPAREN)
     {
         Type t = parseType();
+        m_functions.back().args().push_back(t);
         int reg = statements.regList().addRegister(m_scanner.token().intValue(), t);
         m_scanner.match(OpQuad::Types::REG);
         Register &r = statements.regList()[reg];
