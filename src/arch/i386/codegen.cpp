@@ -182,10 +182,10 @@ void GeneratorX86::genJmp(std::string label)
 
 void GeneratorX86::genCmp(Type t, int op, Register r1, Register r2, Register ret)
 {
-    writeInst("xor", registerToString(ret), registerToString(ret));
     writeInst("cmp", registerToString(r1), registerToString(r2));
     dbg_assert(op >= 0 && op <= CMPOPAMOUNT);
     writeInst("set" + m_cmpOps[op], registerToString(ret, m_loByteRegs));
+    writeInst("and", registerToString(ret), "1");
 }
 
 static std::string byteSizeToNasmVar(int byteSize)
