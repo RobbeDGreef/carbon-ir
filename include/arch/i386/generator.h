@@ -73,8 +73,7 @@ protected:
     std::string registerToString(Register r, std::string *list = nullptr);
 
 public:
-    void genSetupFile();
-    void genFunction(Type t, std::string name);
+    void genFunction(Type t, Function func);
     void genGlobalVariable(std::string name, ArrayType t, std::vector<LARGEINT> init);
     void genExternSymbol(std::string sym);
 

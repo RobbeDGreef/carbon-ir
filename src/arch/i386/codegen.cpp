@@ -69,10 +69,10 @@ void GeneratorX86::genMod(Type t, Register r1, Register r2, Register ret)
     genIDiv(t, r1, r2, ret, "edx");
 }
 
-void GeneratorX86::genFunction(Type t, std::string name)
+void GeneratorX86::genFunction(Type t, Function f)
 {
-    write("[global " + name + "]");
-    write(name + ":");
+    write("[global " + f.name() + "]");
+    write(f.name() + ":");
     writeInst("push", "ebp");
     writeInst("mov", "ebp", "esp");
 }

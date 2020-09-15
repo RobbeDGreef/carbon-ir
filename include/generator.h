@@ -3,6 +3,7 @@
 #include <core.h>
 #include <type.h>
 #include <oplist.h>
+#include <function.h>
 
 /// The base generator class will need to be inherited by your architecture
 /// dependant generator class. You will need to implement some functionality
@@ -44,7 +45,7 @@ protected:
     virtual void genCmp(Type t, int op, Register r1, Register r2, Register ret) {}
 
 public:
-    virtual void genFunction(Type t, std::string name) {}
+    virtual void genFunction(Type t, Function f) {}
     virtual void genGlobalVariable(std::string name, ArrayType t, std::vector<LARGEINT> init) {}
     virtual void genSetupFile() {}
     virtual void genExternSymbol(std::string sym) {}
