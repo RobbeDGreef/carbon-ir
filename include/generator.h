@@ -47,7 +47,7 @@ protected:
 public:
     virtual void genFunction(Type t, Function f) {}
     virtual void genGlobalVariable(std::string name, ArrayType t, std::vector<LARGEINT> init) {}
-    virtual void genSetupFile() {}
+    virtual void genSetupFile(std::string file) {}
     virtual void genExternSymbol(std::string sym) {}
 
     virtual int registerAmount() { return 0; }
