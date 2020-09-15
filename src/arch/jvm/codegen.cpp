@@ -63,13 +63,13 @@ void GeneratorJVM::genGlobalVariable(std::string name, ArrayType t, std::vector<
 
 void GeneratorJVM::genSetupFile(std::string filename)
 {
-    write(".class public carbon");
+    write(".class public " + m_className);
     write(".super java/lang/Object");
     
     write(".method public static main : ([Ljava/lang/String;)V");
     write(".limit locals 1");
     write(".limit stack 2");
-    write("\tinvokestatic Method carbon _main ()I");
+    write("\tinvokestatic Method " + m_className + " _main ()I");
     write("\tinvokestatic Method java/lang/System exit (I)V");
     write("\treturn");
     write(".end method");

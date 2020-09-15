@@ -5,6 +5,9 @@
 class GeneratorJVM : public Generator
 {
 private:
+    std::string m_className;
+
+private:
     /// Helpers
     void writeInst(std::string, std::string);
     void writeInst(std::string, int);
@@ -46,5 +49,5 @@ public:
     int link(std::string infile, std::string outfile, std::string linker);
 
 public:
-    GeneratorJVM(std::string outfile) : Generator(outfile) {}
+    GeneratorJVM(std::string outfile, std::string binname);
 };
