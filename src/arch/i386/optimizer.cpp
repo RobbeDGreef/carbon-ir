@@ -6,7 +6,7 @@ bool OptimizerX86::graphCheck(RegisterGraph &graph)
     /// @todo: refactor
     bool flag = false;
 
-    for (int i = 0; i < (int) graph.statements().regList().size(); i++)
+    for (int i = 0; i < (int)graph.statements().regList().size(); i++)
     {
         Register r = graph.statements().regList()[i];
         if (r.spilled())

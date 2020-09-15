@@ -1,37 +1,49 @@
 #pragma once
 
-#include <core.h> 
+#include <core.h>
 #include <register.h>
 #include <type.h>
 
 static const char *OpNames[] =
-{
-    "NULL", "reg", "intlit", "identifier",
-    "add", "sub", "mul", "div", "mod",
-    "call", "alloca", "store", "load", 
-    "jmp", "jmpcond", "cmp",
-    "return",
-    "function",
-    "destroy register",
-    "spill", "spillload",
+    {
+        "NULL", "reg", "intlit", "identifier",
+        "add", "sub", "mul", "div", "mod",
+        "call", "alloca", "store", "load",
+        "jmp", "jmpcond", "cmp",
+        "return",
+        "function",
+        "destroy register",
+        "spill", "spillload",
 
-    "assign"
-};
+        "assign"};
 
 class OpQuad
 {
 public:
     enum Types
     {
-        REG = 1, INTLIT, IDENTIFIER,
-        ADD, SUB, MUL, DIV, MOD,
-        CALL, ALLOCA, STORE, LOAD,
-        JMP, JMPCOND, CMP,
+        REG = 1,
+        INTLIT,
+        IDENTIFIER,
+        ADD,
+        SUB,
+        MUL,
+        DIV,
+        MOD,
+        CALL,
+        ALLOCA,
+        STORE,
+        LOAD,
+        JMP,
+        JMPCOND,
+        CMP,
         RETURN,
         FUNCTION,
         LABEL,
         DESTROYREG,
-        SPILL, SPILLLOAD, SPILLSTORE,
+        SPILL,
+        SPILLLOAD,
+        SPILLSTORE,
         GLOB,
 
         ASSIGN
@@ -46,7 +58,7 @@ private:
     /// @todo: doesn't this kinda break the name opQUAD
     int m_extra = -1;
     std::vector<int> m_args;
-    
+
     Type m_type;
 
     std::string m_identifier;
@@ -56,7 +68,7 @@ public:
     OpQuad(int op, std::string id);
     OpQuad(int op, int arg1, Type t);
     OpQuad(int op, int arg1, int arg2, int ret, Type t);
-    
+
     int operation() { return m_operation; }
     int arg1() { return m_arg1; }
     int arg2() { return m_arg2; }
@@ -96,6 +108,8 @@ public:
     void destroy();
 
 #ifdef MODE_DEBUG
-    void print() {}
+    void print()
+    {
+    }
 #endif
 };

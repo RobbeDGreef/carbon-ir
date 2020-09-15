@@ -15,7 +15,7 @@
 #define __CLR_YELLOW "\033[33;1m"
 #define __CLR_RED "\033[31;1m"
 #define __CLR_BOLDWHITE "\033[37;1m"
-#define BOLD(x) __CLR_BOLDWHITE  x  __CLR_END
+#define BOLD(x) __CLR_BOLDWHITE x __CLR_END
 
 #include <errsys.h>
 extern ErrorSystem g_errsys;

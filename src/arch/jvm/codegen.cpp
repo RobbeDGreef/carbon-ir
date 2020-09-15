@@ -4,10 +4,14 @@ std::string typeToJVM(Type t)
 {
     switch (t.byteSize())
     {
-    case 1: return "C";
-    case 2: return "S";
-    case 4: return "I";
-    case 8: return "L";
+    case 1:
+        return "C";
+    case 2:
+        return "S";
+    case 4:
+        return "I";
+    case 8:
+        return "L";
     }
 }
 void GeneratorJVM::genIntlitLoad(Type t, int val, Register ret)
@@ -77,13 +81,13 @@ void GeneratorJVM::genJmpCond(Type t, int op, Register r1, Register r2, std::str
 void GeneratorJVM::genLabel(std::string label) {}
 void GeneratorJVM::genJmp(std::string label) {}
 void GeneratorJVM::genCmp(Type t, int op, Register r1, Register r2, Register ret) {}
-void GeneratorJVM::genFunction(Type t, Function f) 
+void GeneratorJVM::genFunction(Type t, Function f)
 {
     std::string method = ".method public static _" + f.name() + " : (";
     for (Type t : f.args())
         method += typeToJVM(t);
-    
-    method += + ")" + typeToJVM(f.retType());
+
+    method += +")" + typeToJVM(f.retType());
 
     write(method);
     write("\t.limit stack 25");
@@ -95,7 +99,7 @@ void GeneratorJVM::genSetupFile(std::string filename)
 {
     write(".class public " + m_className);
     write(".super java/lang/Object");
-    
+
     write(".method public static main : ([Ljava/lang/String;)V");
     write(".limit locals 1");
     write(".limit stack 2");

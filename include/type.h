@@ -8,7 +8,7 @@ class Type
 private:
     int m_byteSize = -1;
     bool m_isFloat = false;
-    
+
     int m_ptr = 0;
 
 public:
@@ -16,7 +16,11 @@ public:
     int ptr() { return m_ptr; }
     void setPtr(int ptr) { m_ptr = ptr; }
     Type() {}
-    Type(int bytesize, bool isFloat=false) { m_byteSize = bytesize; m_isFloat = isFloat; }
+    Type(int bytesize, bool isFloat = false)
+    {
+        m_byteSize = bytesize;
+        m_isFloat = isFloat;
+    }
 };
 
 class ArrayType
@@ -26,8 +30,11 @@ private:
     Type m_type;
 
 public:
-    ArrayType(Type t, int amount) { m_type = t; m_arrSize = amount; }
+    ArrayType(Type t, int amount)
+    {
+        m_type = t;
+        m_arrSize = amount;
+    }
     int arrSize() { return m_arrSize; }
     Type type() { return m_type; }
-    
 };

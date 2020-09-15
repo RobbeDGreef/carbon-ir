@@ -8,5 +8,4 @@ class OptimizerZ80 : public Optimizer
 protected:
     // bool graphCheck(RegisterGraph &graph);
     // void prepAssignRegisters(OpList &list);
-
 };

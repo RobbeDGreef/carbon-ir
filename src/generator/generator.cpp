@@ -50,6 +50,6 @@ void Generator::setRegList(RegisterList list)
 
 Register &Generator::findReg(int r)
 {
-    dbg_assert(r >= 0 && r <= (int) m_regData.size());
+    dbg_assert(r >= 0 && r <= (int)m_regData.size());
     return m_regData[r];
 }

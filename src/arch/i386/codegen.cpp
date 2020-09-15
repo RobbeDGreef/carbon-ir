@@ -106,7 +106,7 @@ static bool isArg(std::vector<Register> args, int i)
     for (Register r : args)
         if (r.hintReg() == i)
             return true;
-    
+
     return false;
 }
 
@@ -192,10 +192,14 @@ static std::string byteSizeToNasmVar(int byteSize)
 {
     switch (byteSize)
     {
-    case 1: return "db";
-    case 2: return "dw";
-    case 4: return "dd";
-    case 8: return "dq";
+    case 1:
+        return "db";
+    case 2:
+        return "dw";
+    case 4:
+        return "dd";
+    case 8:
+        return "dq";
     default:
         dbg_assert(0);
         return "db";
@@ -211,7 +215,7 @@ void GeneratorX86::genGlobalVariable(std::string name, ArrayType t, std::vector<
     {
         text += std::to_string(i) + ", ";
     }
-    
+
     text += '\n';
 
     insert(text, DATASECTION);

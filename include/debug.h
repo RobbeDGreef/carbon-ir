@@ -2,9 +2,12 @@
 
 #include <core.h>
 
-
 #ifdef MODE_DEBUG
-#define __DW(x) do { x; } while (0)
+#define __DW(x) \
+    do          \
+    {           \
+        x;      \
+    } while (0)
 #define __STRINGIFY(x) #x
 #define __TOSTR(x) __STRINGIFY(x)
 

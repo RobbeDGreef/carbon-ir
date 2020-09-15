@@ -20,7 +20,7 @@ std::string genTemp()
     std::string s = "/tmp/";
     for (int i = 0; i < FILE_TEMP_LIMIT; i++)
         s += 'a' + rand() % 26;
-    
+
     return s;
 }
 
@@ -43,18 +43,17 @@ int main(int argc, char **argv)
     Optimizer *optimizer = nullptr;
 
     static struct option options[] =
-    {
-        /// Flags
-        {"Compile", no_argument, &f_onlyCompile, 'S'},
-        {"NoLink", no_argument, &f_onlyAssemble, 'c'},
+        {
+            /// Flags
+            {"Compile", no_argument, &f_onlyCompile, 'S'},
+            {"NoLink", no_argument, &f_onlyAssemble, 'c'},
 
-        /// Arguments
-        {"output", required_argument, 0, 'o'},
-        {"assembler", optional_argument, 0, 'a'},
-        {"linker", optional_argument, 0, 'l'},
-        {"machine", required_argument, 0, 'm'},
-        {0, 0, 0, 0}
-    };
+            /// Arguments
+            {"output", required_argument, 0, 'o'},
+            {"assembler", optional_argument, 0, 'a'},
+            {"linker", optional_argument, 0, 'l'},
+            {"machine", required_argument, 0, 'm'},
+            {0, 0, 0, 0}};
 
     while ((opt = getopt_long(argc, argv, "m:o:a:l:cS", options, &opt_index)) != -1)
     {
@@ -67,23 +66,23 @@ int main(int argc, char **argv)
         case 'o':
             outfile = std::string(optarg);
             break;
-        
+
         case 'S':
             f_onlyCompile = true;
             break;
-        
+
         case 'c':
             f_onlyAssemble = true;
             break;
-        
+
         case 'm':
             machine = std::string(optarg);
             break;
-        
+
         case 'a':
             assembler = std::string(optarg);
             break;
-        
+
         case 'l':
             linker = std::string(optarg);
             break;
@@ -100,7 +99,7 @@ int main(int argc, char **argv)
 
     if (f_onlyCompile)
         asmFile = outfile;
-    
+
     if (f_onlyAssemble)
         linkFile = outfile;
 
@@ -113,7 +112,7 @@ int main(int argc, char **argv)
             optimizer = new OptimizerX86();
         }
         break;
-    
+
     case 'j':
         if (!machine.compare("jvm"))
         {
@@ -121,7 +120,7 @@ int main(int argc, char **argv)
             optimizer = new OptimizerJVM();
         }
         break;
-    
+
     case 'e':
         if (!machine.compare("Z80"))
         {
@@ -139,11 +138,11 @@ int main(int argc, char **argv)
         Parser parser = Parser(scanner, generator, optimizer);
         parser.parse();
     }
- 
+
     /// @todo: I'm not proud of thess goto's
     if (f_onlyCompile)
         goto end;
-    
+
     if (generator->assemble(asmFile, linkFile, assembler))
         g_errsys.fatal("failed to assemble binary");
 

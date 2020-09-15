@@ -13,10 +13,9 @@ class Generator
 protected:
     FILE *m_outfile = nullptr;
     std::vector<std::string> m_internalOutBuf;
-    
+
     RegisterList m_regData;
     int m_opLine;
-
 
 protected:
     /// @todo: all of these functions should return nothing? and also arguments are useless now ay?
@@ -24,11 +23,11 @@ protected:
     /// dependant generator class
     virtual void genIntlitLoad(Type t, int val, Register ret) {}
     virtual void genGlobLoad(Type t, std::string glob, Register ret) {}
-    virtual void genMul(Type t, Register r1, Register r2, Register ret) {} 
-    virtual void genAdd(Type t, Register r1, Register r2, Register ret) {} 
-    virtual void genSub(Type t, Register r1, Register r2, Register ret) {} 
-    virtual void genDiv(Type t, Register r1, Register r2, Register ret) {} 
-    virtual void genMod(Type t, Register r1, Register r2, Register ret) {} 
+    virtual void genMul(Type t, Register r1, Register r2, Register ret) {}
+    virtual void genAdd(Type t, Register r1, Register r2, Register ret) {}
+    virtual void genSub(Type t, Register r1, Register r2, Register ret) {}
+    virtual void genDiv(Type t, Register r1, Register r2, Register ret) {}
+    virtual void genMod(Type t, Register r1, Register r2, Register ret) {}
     virtual void genReg(Type t, Register r, Register ret) {}
 
     virtual void genAlloca(Type t, Register r, Register ret) {}
@@ -63,6 +62,7 @@ public:
     /// by the user. The same goes for the linker.
     virtual int assemble(std::string infile, std::string outfile, std::string assembler) { return 0; }
     virtual int link(std::string infile, std::string outfile, std::string linker) { return 0; }
+
 public:
     /// This is the base generate function, this can be overriden in the architecture
     /// dependant generator class but it is not required. Basically unless you need

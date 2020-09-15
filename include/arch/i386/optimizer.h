@@ -8,5 +8,4 @@ class OptimizerX86 : public Optimizer
 protected:
     bool graphCheck(RegisterGraph &graph);
     void prepAssignRegisters(OpList &list);
-
 };

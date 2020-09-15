@@ -8,5 +8,4 @@ class OptimizerJVM : public Optimizer
 protected:
     // bool graphCheck(RegisterGraph &graph);
     // void prepAssignRegisters(OpList &list);
-
 };

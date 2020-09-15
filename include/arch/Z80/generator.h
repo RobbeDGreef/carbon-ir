@@ -7,7 +7,7 @@ enum
     BC,
     DE,
     HL,
-    
+
     REGAMOUNT24
 };
 
@@ -33,11 +33,11 @@ private:
 protected:
     void genIntlitLoad(Type t, int val, Register ret) {}
     void genGlobLoad(Type t, std::string glob, Register ret) {}
-    void genMul(Type t, Register r1, Register r2, Register ret) {} 
-    void genAdd(Type t, Register r1, Register r2, Register ret) {} 
-    void genSub(Type t, Register r1, Register r2, Register ret) {} 
-    void genDiv(Type t, Register r1, Register r2, Register ret) {} 
-    void genMod(Type t, Register r1, Register r2, Register ret) {} 
+    void genMul(Type t, Register r1, Register r2, Register ret) {}
+    void genAdd(Type t, Register r1, Register r2, Register ret) {}
+    void genSub(Type t, Register r1, Register r2, Register ret) {}
+    void genDiv(Type t, Register r1, Register r2, Register ret) {}
+    void genMod(Type t, Register r1, Register r2, Register ret) {}
     void genReg(Type t, Register r, Register ret) {}
 
     void genAlloca(Type t, Register r, Register ret) {}

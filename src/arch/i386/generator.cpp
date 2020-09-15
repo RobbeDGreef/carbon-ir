@@ -84,6 +84,6 @@ int GeneratorX86::link(std::string infile, std::string outfile, std::string link
 {
     if (linker != "")
         return system((linker + " -o " + outfile + " " + infile).c_str());
-    
+
     return system(("gcc -o " + outfile + " " + infile + " -m32").c_str());
 }

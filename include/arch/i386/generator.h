@@ -30,7 +30,7 @@ namespace x86
 
         CMPOPAMOUNT
     };
-}
+} // namespace x86
 
 using namespace x86;
 
