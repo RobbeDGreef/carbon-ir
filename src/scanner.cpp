@@ -102,6 +102,21 @@ std::string Scanner::scanIdentifier(int c)
     g_errsys.syntaxError("identifier too long");
 }
 
+void Scanner::parseStringlit()
+{
+    /// @todo @fixme: 
+    std::string lit;
+    int c;
+    while ((c = next()) != '"')
+    {
+        if (c == EOF)
+            g_errsys.syntaxError("expected a closing quote character before the end of the file");
+        
+        lit += c;
+    }
+    m_token.set(Token::Types::STRINGLIT, lit);
+}
+
 int Scanner::identifyKeyword(std::string id)
 {
     /// Small optimization
@@ -281,6 +296,10 @@ Token &Scanner::scan()
 
     case ':':
         m_token.setToken(Token::Types::COLON);
+        break;
+    
+    case '"':
+        parseStringlit();
         break;
 
     case '#':

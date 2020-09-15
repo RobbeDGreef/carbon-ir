@@ -24,6 +24,7 @@ private:
     std::string scanIdentifier(int c);
     int identifyKeyword(std::string id);
     void putback(int c);
+    void parseStringlit();
 
 public:
     Token &scan();
