@@ -382,8 +382,19 @@ std::vector<LARGEINT> Parser::parseArrayInit(int amount)
     /// @todo @fixme: this might deadlock when this is the end of the file i guess
     while (m_scanner.token().token() != Token::Types::NEWLINE)
     {
-        init.push_back(m_scanner.token().intValue());
-        m_scanner.match(Token::Types::INTLIT);
+        switch (m_scanner.token().token())
+        {
+        case Token::Types::INTLIT:
+            init.push_back(m_scanner.token().intValue());
+            break;
+        case Token::Types::STRINGLIT:
+            for (char c : m_scanner.token().identifier())
+                init.push_back(c);
+            break;
+        default:
+            g_errsys.syntaxError("unexpected token used as array initializer");
+        }
+        m_scanner.scan();
     }
 
     return init;
