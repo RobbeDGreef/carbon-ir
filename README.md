@@ -25,7 +25,7 @@ The carbon-ir language is a very simple and staticly typed.
 
 This function will add 1 and 5 together and return its result
 
-    function i32 main()
+    function i32 main() <global:true>
     {
         %0 = i32 1
         %1 = i32 5
