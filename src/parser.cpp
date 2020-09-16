@@ -1,4 +1,5 @@
 #include <parser.h>
+#include <attributes.h>
 
 Parser::Parser(Scanner &scan, Generator *gen, Optimizer *opt)
     : m_scanner(scan)
@@ -51,7 +52,7 @@ int Parser::parsePrimary(Type t, bool shouldBeReg)
 
     if (shouldBeReg)
         dbg_assert(tok.token() == Token::Types::REG);
-    
+
     return tok.intValue();
 }
 
@@ -65,7 +66,6 @@ OpQuad *Parser::parseBinOperator()
 {
     int tok = m_scanner.token().token();
     m_scanner.scan();
-
 
     Type type = parseType();
     OpQuad *quad = new OpQuad(OpQuad::tokToOp(tok), type);
@@ -90,7 +90,7 @@ OpQuad *Parser::parseAssign()
 
     if (!quad)
         g_errsys.syntaxError("unexpected operation after register assign");
-    
+
     quad->setReturn(addRegister(reg, quad->type()));
 
     return quad;
@@ -99,7 +99,7 @@ OpQuad *Parser::parseAssign()
 OpQuad *Parser::parseInitialize()
 {
     Type t = parseType();
-    
+
     OpQuad *quad;
     if (m_scanner.token().token() == Token::Types::INTLIT)
         quad = new OpQuad(OpQuad::Types::INTLIT, m_scanner.token().intValue(), t);
@@ -122,12 +122,12 @@ OpQuad *Parser::parseFunctionCall()
     Type t = parseType();
 
     OpQuad *quad = new OpQuad(OpQuad::Types::CALL, t);
-    
+
     std::string id = m_scanner.match(Token::Types::IDENTIFIER).identifier();
     quad->setIdentifier(id);
 
     m_scanner.match(Token::Types::LPAREN);
-    
+
     std::vector<int> arguments;
     /// @todo: if there is no rparen it will deadlock so fix that (maybe check for newline or something)
     /// @todo: Check if the arguments are correct with the function called
@@ -146,7 +146,7 @@ OpQuad *Parser::parseLoad()
 {
     m_scanner.scan();
     Type t = parseType();
-    
+
     OpQuad *quad;
     if (m_scanner.token().token() == Token::Types::REG)
     {
@@ -176,11 +176,11 @@ OpQuad *Parser::parseStore()
     int r1 = m_scanner.token().intValue();
     m_scanner.match(Token::Types::REG);
     r1 = addRegister(r1, t);
-    
+
     int r2 = m_scanner.token().intValue();
     m_scanner.match(Token::Types::REG);
     r2 = addRegister(r2, t);
-    
+
     return new OpQuad(OpQuad::Types::STORE, r1, r2, -1, t);
 }
 
@@ -208,7 +208,7 @@ OpQuad *Parser::parseCmp()
     m_scanner.match(Token::Types::REG);
     int r2 = addRegister(m_scanner.token().intValue(), t);
     m_scanner.match(Token::Types::REG);
-    
+
     OpQuad *quad = new OpQuad(OpQuad::Types::CMP, r1, r2, -1, t);
     quad->setExtra(op - Token::Types::EQ);
     return quad;
@@ -225,26 +225,24 @@ OpQuad *Parser::parseOperation()
     case Token::Types::DIV:
     case Token::Types::MOD:
         return parseBinOperator();
-    
+
     case Token::Types::I8:
     case Token::Types::I16:
     case Token::Types::I32:
     case Token::Types::I64:
         return parseInitialize();
-    
+
     case Token::Types::CALL:
         return parseFunctionCall();
-    
+
     case Token::Types::ALLOCA:
         return parseAlloca();
-    
+
     case Token::Types::LOAD:
         return parseLoad();
-    
+
     case Token::Types::CMP:
         return parseCmp();
-    
-
     }
 
     return nullptr;
@@ -299,16 +297,16 @@ OpQuad *Parser::parseStatement()
 
     case Token::Types::RETURN:
         return parseReturn();
-    
+
     case Token::Types::STORE:
         return parseStore();
-    
+
     case Token::Types::JMPCOND:
         return parseJmpCond();
-    
+
     case Token::Types::JMP:
         return parseJmp();
-    
+
     case Token::Types::IDENTIFIER:
         return parseLabel();
     }
@@ -329,7 +327,7 @@ OpList Parser::parseFunction()
     std::string fname = m_scanner.token().identifier();
     m_scanner.match(Token::Types::IDENTIFIER);
     m_scanner.match(Token::Types::LPAREN);
-    
+
     m_functions.push_back(Function(fname, t));
 
     /// @todo: if there is no rparen it will deadlock so fix that (maybe check for newline or something)
@@ -346,7 +344,11 @@ OpList Parser::parseFunction()
         r.setHintSpill(spill--);
     }
 
-    m_scanner.scanUntil(Token::Types::LBRACE);
+    /// @todo: this might deadlock when no LBRACE is ever found
+    while (m_scanner.scan().token() != Token::Types::LBRACE)
+        if (m_scanner.token().token() == Token::Types::ATTRIBUTES)
+            m_functions.back().setAttributes(Attributes(m_scanner.token().args()));
+
     m_scanner.scan();
 
     while (1)
@@ -415,7 +417,7 @@ void Parser::parse()
                 m_optimizer->assignRegisters(statements, m_generator);
             m_generator->setRegList(statements.regList());
             dbg_call(statements.print();)
-            m_generator->feedGenerate(statements);
+                m_generator->feedGenerate(statements);
             statements.destroy();
         }
         else if (tok == Token::Types::GLOB)

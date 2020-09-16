@@ -12,6 +12,12 @@ void Token::set(int tok, std::string id)
     m_identifier = id;
 }
 
+void Token::set(int tok, Attributes args)
+{
+    m_token = tok;
+    m_args = args;
+}
+
 void Token::setToken(int tok)
 {
     m_token = tok;
@@ -30,6 +36,6 @@ std::string Token::getName()
 {
     if (m_token < Token::Types::TOKAMOUNT && m_token > 0)
         return std::string(TokenTypes[m_token]);
-    
+
     return "NULL";
 }

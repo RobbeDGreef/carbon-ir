@@ -1,6 +1,7 @@
 #pragma once
 
 #include <core.h>
+#include <attributes.h>
 #include <debug.h>
 
 static const char *TokenTypes[] =
@@ -53,7 +54,6 @@ public:
         FUNCTION,
         EXTERN,
 
-        ATTRIBUTE,
         COMMA,
         LPAREN,
         RPAREN,
@@ -75,6 +75,7 @@ public:
 
         GLOB,
         STRINGLIT,
+        ATTRIBUTES,
 
         TOKAMOUNT
     };
@@ -84,6 +85,7 @@ private:
     int m_intValue = 0;
 
     std::string m_identifier;
+    Attributes m_args;
 
 public:
 #ifdef MODE_DEBUG
@@ -99,9 +101,11 @@ public:
     }
     int intValue() { return m_intValue; }
     std::string identifier() { return m_identifier; }
+    Attributes args() { return m_args; }
 
     void set(int tok, int val);
     void set(int tok, std::string id);
+    void set(int tok, Attributes args);
 
     void setToken(int tok);
     void setIntValue(int val);

@@ -7,7 +7,6 @@ Scanner::Scanner(std::string file)
 
     if (m_infile == nullptr)
         g_errsys.fatal("Unable to open file " BOLD("\"" + file + "\""));
-
 }
 
 int Scanner::next()
@@ -33,7 +32,7 @@ void Scanner::skipLine()
 
     while (c != '\n' && c != EOF)
         c = next();
-    
+
     putback(c);
 }
 
@@ -74,7 +73,7 @@ int Scanner::scanReg()
     int c = next();
     if (!isdigit(c))
         g_errsys.syntaxError("expected a integer to identify the register");
-    
+
     return scanInt(c);
 }
 
@@ -102,34 +101,56 @@ std::string Scanner::scanIdentifier(int c)
     g_errsys.syntaxError("identifier too long");
 }
 
-void Scanner::parseStringlit()
+void Scanner::scanStringlit()
 {
-    /// @todo @fixme: 
+    /// @todo @fixme:
     std::string lit;
     int c;
     while ((c = next()) != '"')
     {
         if (c == EOF)
             g_errsys.syntaxError("expected a closing quote character before the end of the file");
-        
+
         lit += c;
     }
     m_token.set(Token::Types::STRINGLIT, lit);
 }
 
+void Scanner::scanAttributes()
+{
+    Attributes args;
+
+    std::string buf;
+    int c;
+    while ((c = next()) != EOF)
+    {
+        if ((c == ' ' || c == '>') && buf.size())
+        {
+            args.push_back(buf);
+            buf.clear();
+
+            if (c == '>')
+                break;
+        }
+        else
+            buf += c;
+    }
+    m_token.set(Token::Types::ATTRIBUTES, args);
+}
+
 int Scanner::identifyKeyword(std::string id)
 {
     /// Small optimization
-    switch(id[0])
+    switch (id[0])
     {
     case 'a':
         if (!id.compare("add"))
             return Token::Types::ADD;
-        
+
         if (!id.compare("alloca"))
             return Token::Types::ALLOCA;
         break;
-    
+
     case 'c':
         if (!id.compare("call"))
             return Token::Types::CALL;
@@ -141,7 +162,7 @@ int Scanner::identifyKeyword(std::string id)
         if (!id.compare("div"))
             return Token::Types::DIV;
         break;
-    
+
     case 'e':
         if (!id.compare("eq"))
             return Token::Types::EQ;
@@ -153,7 +174,7 @@ int Scanner::identifyKeyword(std::string id)
         if (!id.compare("function"))
             return Token::Types::FUNCTION;
         break;
-    
+
     case 'g':
         if (!id.compare("ge"))
             return Token::Types::GE;
@@ -171,11 +192,11 @@ int Scanner::identifyKeyword(std::string id)
         if (!id.compare("i64"))
             return Token::Types::I64;
         break;
-    
+
     case 'j':
         if (!id.compare("jmp"))
             return Token::Types::JMP;
-        
+
         if (!id.compare("jmpcond"))
             return Token::Types::JMPCOND;
         break;
@@ -188,7 +209,7 @@ int Scanner::identifyKeyword(std::string id)
         if (!id.compare("le"))
             return Token::Types::LE;
         break;
-    
+
     case 'r':
         if (!id.compare("return"))
             return Token::Types::RETURN;
@@ -207,7 +228,7 @@ int Scanner::identifyKeyword(std::string id)
         else if (!id.compare("mod"))
             return Token::Types::MOD;
         break;
-    
+
     case 'n':
         if (!id.compare("neq"))
             return Token::Types::NEQ;
@@ -221,9 +242,9 @@ Token &Scanner::match(int tok)
 {
     if (m_token.token() == tok)
         return scan();
-    
+
     dbg_call(m_token.print();)
-    g_errsys.syntaxError("unexpected token");
+        g_errsys.syntaxError("unexpected token");
 }
 
 Token &Scanner::match(int tok1, int tok2)
@@ -232,7 +253,7 @@ Token &Scanner::match(int tok1, int tok2)
         return scan();
 
     dbg_call(m_token.print();)
-    g_errsys.syntaxError("unexpected token");
+        g_errsys.syntaxError("unexpected token");
 }
 
 Token &Scanner::scanUntil(int tok)
@@ -257,57 +278,61 @@ Token &Scanner::scan()
     case '\n':
         m_token.setToken(Token::Types::NEWLINE);
         break;
-    
+
     case '%':
         m_token.set(Token::Types::REG, scanReg());
         break;
-    
+
     case '=':
         m_token.setToken(Token::Types::EQUALSIGN);
         break;
-    
+
     case '(':
         m_token.setToken(Token::Types::LPAREN);
         break;
-    
+
     case ')':
         m_token.setToken(Token::Types::RPAREN);
         break;
-    
+
     case '{':
         m_token.setToken(Token::Types::LBRACE);
         break;
-    
+
     case '}':
         m_token.setToken(Token::Types::RBRACE);
         break;
-    
+
     case '[':
         m_token.setToken(Token::Types::LBRACKET);
         break;
-    
+
     case ']':
         m_token.setToken(Token::Types::RBRACKET);
         break;
-    
-    case '*':   
+
+    case '*':
         m_token.setToken(Token::Types::STAR);
         break;
 
     case ':':
         m_token.setToken(Token::Types::COLON);
         break;
-    
+
     case '"':
-        parseStringlit();
+        scanStringlit();
         break;
 
     case '#':
         skipLine();
         return scan();
-    
+
     case '@':
         m_token.set(Token::Types::GLOB, scanIdentifier(c));
+        break;
+
+    case '<':
+        scanAttributes();
         break;
 
     case EOF:
@@ -331,7 +356,7 @@ Token &Scanner::scan()
                 m_token.setToken(tok);
                 break;
             }
-            
+
             m_token.set(Token::Types::IDENTIFIER, id);
             break;
         }
