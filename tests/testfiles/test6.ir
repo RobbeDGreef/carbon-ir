@@ -7,7 +7,7 @@ function i32 foo()
     return i32 %2
 }
 
-function i32 main()
+function i32 main() <global:true>
 {
     %0 = call i32 foo()
     return i32 %0

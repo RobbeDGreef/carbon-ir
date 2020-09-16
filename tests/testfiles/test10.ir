@@ -1,5 +1,5 @@
 # 1
-function i32 main()
+function i32 main() <global:true>
 {
     %0 = i32 4
     %1 = i32 4

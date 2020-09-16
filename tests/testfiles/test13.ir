@@ -2,7 +2,7 @@
 
 @glob1 = [i32 1] 6
 
-function i32 main()
+function i32 main() <global:true>
 {
     %0 = load i32* @glob1
     return i32 %0
