@@ -1,7 +1,7 @@
 # 5
 function i32 main() <global:true>
 {
-    %0 = i32 4
+    %0 = i32 1
     %1 = alloca i32 %0
     %2 = i32 5
     store i32* %1 %2        # store in %1 the value %2

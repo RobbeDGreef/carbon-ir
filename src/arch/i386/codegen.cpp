@@ -145,6 +145,7 @@ void GeneratorX86::genFunctionCall(Type t, std::string id, Register ret, std::ve
 
 void GeneratorX86::genAlloca(Type t, Register r, Register ret)
 {
+    writeInst("imul", registerToString(r), std::to_string(t.byteSize()));
     writeInst("sub", "esp", registerToString(r));
     writeInst("mov", registerToString(ret), "esp");
 }
