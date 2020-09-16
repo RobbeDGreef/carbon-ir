@@ -1,3 +1,9 @@
+"""
+DISCLAIMER: the code here is pretty trash, I just quickly wiped it
+            up to have something to easily test with.
+
+@todo: Create a better test suite
+"""
 import os
 import sys
 import subprocess
