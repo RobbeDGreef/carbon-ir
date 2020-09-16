@@ -71,7 +71,8 @@ void GeneratorX86::genMod(Type t, Register r1, Register r2, Register ret)
 
 void GeneratorX86::genFunction(Type t, Function f)
 {
-    write("[global " + f.name() + "]");
+    if (f.attributes().getBoolValueOf("global") == true)
+        write("[global " + f.name() + "]");
     write(f.name() + ":");
     writeInst("push", "ebp");
     writeInst("mov", "ebp", "esp");
