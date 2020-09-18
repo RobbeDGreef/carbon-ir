@@ -64,6 +64,8 @@ int main(int argc, char **argv)
         {
             /// Flags
             {"help", no_argument, 0, 'h'},
+            {"compile", no_argument, &f_onlyCompile, 'S'},
+            {"nolink", no_argument, &f_onlyAssemble, 'c'},
 
             /// Arguments
             {"output", required_argument, 0, 'o'},
@@ -109,7 +111,7 @@ int main(int argc, char **argv)
             break;
 
         default:
-            g_errsys.fatal("usage: glu -o <OUTFILE> <INFILES>");
+            g_errsys.fatal("basic usage: carbon-ir -o [outfile] [infiles]\ntry carbin-ir -h for help");
         }
     }
 
