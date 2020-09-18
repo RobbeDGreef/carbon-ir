@@ -8,6 +8,7 @@ You can of course store a integer in a register first like this:
 REG = TYPE INTLIT-VALUE
 
 e.g.
+
     %0 = i32 3
 
 Don't worry about the overhead, carbon will handle and optimize that for you
@@ -18,6 +19,7 @@ Carbon uses line comments with the same syntax as python. The hashtag (pound) sy
 is used to denote a comment.
 
 e.g.
+
     %0 = i32 5      # This line will be executed but the next one won't
     # %1 = i32 1    
 
@@ -26,6 +28,7 @@ The binary operations currently are: `add` `sub` `mul` `div` and `mod`
 
 REG = OPERATION TYPE REG REG
 e.g.
+
     %2 = add i32 %0 %1
 
 The binary operations will store the result of their operation in the returning
@@ -35,30 +38,30 @@ be set to the type of the other registers.
 ### add
 The add operation will add the content of the first register to that of the second register.
 
-C equivalent: a = b + c;
+C equivalent: `a = b + c`;
 
 ### sub
 The sub operation will subtract the content of the first register with that of the second register.
 
-C equivalent: a = b - c;
+C equivalent: `a = b - c`;
 
 ### mul
 The mul operation will multiply the content of the first register with that of the
 second register.
 
-C equivalent: a = b * c;
+C equivalent: `a = b * c`;
 
 ### div
 The div operation will divide the content of the first register with that of the
 second register.
 
-C equivalent: a = b / c;
+C equivalent: `a = b / c`;
 
 ### mod
 The mod operation will divide the content of the first register with that of the second
 register and return the remainder to the returning register.
 
-C equivalent: a = b % c;
+C equivalent: `a = b % c`;
 
 ## Memory operations
 ### alloca
@@ -66,6 +69,7 @@ The alloca keyword will allocate a specified amount of entries on the stack with
 specified by the type requested. 
 
 e.g.
+
     %0 = i32 1
     %1 = alloca i32 %0
 
@@ -77,6 +81,7 @@ register. The pointer's type will be the same specified by alloca (i32 in the ex
 The store operation can be used to store a value in the memory pointed to by a pointer.
 
 e.g.
+
     %0 = i32 1
     %1 = alloca i32 %0
     %2 = i32 5
@@ -89,6 +94,7 @@ and then load the value 5 into that location.
 The load operation will load a value pointed to by a pointer into a register.
 
 e.g.
+
     %0 = i32 1
     %1 = alloca i32 %0
     %2 = i32 5
@@ -105,6 +111,7 @@ Global arrays syntax can be described as follows:
 @globalname = [TYPE AMOUNT] OPTIONAL-INITIALIZER-LIST
 
 e.g.
+
     @globarray = [i32 4] 1 2 3 4
 
 This example will allocate 4 32 bit integers and initialize them with 1, 2, 3 and 4.
@@ -113,6 +120,7 @@ This example will allocate 4 32 bit integers and initialize them with 1, 2, 3 an
 Strings can be used in an initializer list as shown below.
 
 e.g.
+
     @str1 = [i8 13] "Hello world" 10 0
 
 ## Functions
@@ -124,6 +132,7 @@ function TYPE NAME(OPTIONAL-ARGUMENTS) <OPTIONAL-ATTRIBUTES>
 }
 
 e.g.
+
     function i32 main(i32 %0 i8* %1) <global:true>
     {
     }
@@ -134,6 +143,7 @@ The example shows a typical main function.
 The return keyword accepts a register as argument to return from the function.
 
 e.g.
+
     %0 = i32 5
     return i32 %0
 
@@ -143,7 +153,8 @@ all match.
 ### call operation
 The call operation can invoke a specified function and store its result.
 
-e.g
+e.g.
+
     %1 = i32 7
     %2 = call i32 foo(%0)
 
@@ -159,7 +170,8 @@ label and start executing code from there.
 Defining a label is as easy as writing 
 LABELNAME:
 
-e.g
+e.g.
+
     labelname:
     jmp labelname
 
@@ -170,6 +182,7 @@ The cmp operation will compare the first regsiter with the second and will, base
 the comparison operation specified, store 1 (true) or 0 (false) in the resulting regsiter
 
 e.g.
+
     %0 = i32 5
     %1 = i32 2
     %2 = cmp g i32 %0 %1
@@ -184,6 +197,7 @@ meaning: equal, not equal, less than, less than or equal to, greater than, great
 The jmp operation will just move the instructions execution point to the specified label.
 
 e.g.
+
     label0:
     jmp label0
 
@@ -197,6 +211,7 @@ evaluates to true.
 see the cmp operation section for more details on the comparison features.
 
 e.g.
+
     %0 = i32 4
     %1 = i32 50
     jmpcmp neq %0 %1 label0
