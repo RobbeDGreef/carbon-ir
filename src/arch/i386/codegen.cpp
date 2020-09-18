@@ -155,6 +155,11 @@ void GeneratorX86::genStore(Type t, Register r1, Register r2)
     writeInst("mov", "[" + registerToString(r1) + "]", registerToString(r2));
 }
 
+void GeneratorX86::genStore(Type t, std::string glob, Register r2)
+{
+    writeInst("mov", "[" + glob + "]", registerToString(r2));
+}
+
 void GeneratorX86::genLoad(Type t, Register r, Register ret)
 {
     writeInst("mov", registerToString(ret), "[" + registerToString(r) + "]");

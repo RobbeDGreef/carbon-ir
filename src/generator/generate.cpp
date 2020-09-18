@@ -55,7 +55,10 @@ void Generator::generate(OpQuad *op)
         break;
 
     case OpQuad::Types::STORE:
-        genStore(op->type(), findReg(op->arg1()), findReg(op->arg2()));
+        if (op->arg1() == -1)
+            genStore(op->type(), op->identifier(), findReg(op->arg2()));
+        else
+            genStore(op->type(), findReg(op->arg1()), findReg(op->arg2()));
         break;
 
     case OpQuad::Types::LOAD:
