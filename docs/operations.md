@@ -91,6 +91,9 @@ e.g.
 This example will first create a pointer that points to a location on the stack, 
 and then load the value 5 into that location.
 
+The store operation accepts either a global variable identifier or a register as
+its first argument.
+
 ### load
 The load operation will load a value pointed to by a pointer into a register.
 
@@ -104,6 +107,9 @@ e.g.
     %3 = load i32* %1
 
 We built on the example just above and now the register 3 will hold the value 5.
+
+The load operation accepts either a global variable identifier or a register as
+its argument.
 
 ### Global arrays (and variables)
 Global identifiers always start with an at (@) symbol followed by the identifier itself.
