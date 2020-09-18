@@ -26,6 +26,22 @@ std::string genTemp()
     return s;
 }
 
+const std::string helpString = "Usage: carbon-ir [options] file\n"
+                               "Options:\n"
+                               "\t--help (-h)\t\t\tDisplay this information\n"
+                               "\t--compile (-S)\t\t\tOnly compile to assembly\n"
+                               "\t--nolink (-c)\t\t\tOnly assemble the generated assembly code, do not link\n"
+                               "\t--output (-o)\t [outputfile]\tSpecify the name of the output file (default is a.out)\n"
+                               "\t--assembler (-a) [assembler]\tForce carbon to use a specific assembler\n"
+                               "\t--linker (-l)\t [linker]\tForce carbon to use a specific linker\n"
+                               "\t--machine (-m)\t [architecture]\tSpecify the type of machine you want to generate code for\n";
+
+void printHelp()
+{
+    std::cout << helpString << "\n";
+    exit(0);
+}
+
 int main(int argc, char **argv)
 {
     int opt;
@@ -47,8 +63,7 @@ int main(int argc, char **argv)
     static struct option options[] =
         {
             /// Flags
-            {"Compile", no_argument, &f_onlyCompile, 'S'},
-            {"NoLink", no_argument, &f_onlyAssemble, 'c'},
+            {"help", no_argument, 0, 'h'},
 
             /// Arguments
             {"output", required_argument, 0, 'o'},
@@ -57,7 +72,7 @@ int main(int argc, char **argv)
             {"machine", required_argument, 0, 'm'},
             {0, 0, 0, 0}};
 
-    while ((opt = getopt_long(argc, argv, "m:o:a:l:cS", options, &opt_index)) != -1)
+    while ((opt = getopt_long(argc, argv, "m:o:a:l:cSh", options, &opt_index)) != -1)
     {
         switch (opt)
         {
@@ -87,6 +102,10 @@ int main(int argc, char **argv)
 
         case 'l':
             linker = std::string(optarg);
+            break;
+
+        case 'h':
+            printHelp();
             break;
 
         default:
