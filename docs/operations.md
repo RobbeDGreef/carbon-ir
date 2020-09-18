@@ -27,6 +27,7 @@ e.g.
 The binary operations currently are: `add` `sub` `mul` `div` and `mod`
 
 REG = OPERATION TYPE REG REG
+
 e.g.
 
     %2 = add i32 %0 %1
