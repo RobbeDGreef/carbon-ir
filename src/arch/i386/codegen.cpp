@@ -1,9 +1,27 @@
 #include <arch/i386/generator.h>
 #include <debug.h>
 
+static std::string nasmSizeName(Type t)
+{
+    switch (t.byteSize())
+    {
+    case 1:
+        return "BYTE";
+    case 2:
+        return "WORD";
+    case 4:
+        return "DWORD";
+    case 8:
+        return "QWORD";
+    }
+
+    dbg_assert(0);
+    return "";
+}
+
 void GeneratorX86::genIntlitLoad(Type t, int val, Register ret)
 {
-    writeMov(registerToString(ret), std::to_string(val));
+    writeMov(registerToString(ret), nasmSizeName(t) + " " + std::to_string(val));
 }
 
 void GeneratorX86::genMul(Type t, Register r1, Register r2, Register ret)
@@ -92,13 +110,11 @@ void GeneratorX86::genReg(Type t, Register r, Register ret)
 
 void GeneratorX86::genSpillLoad(Type t, Register r, Register ret)
 {
-    dbg_print("gened spilload: " << r.hintSpill() << ret.hintReg());
     writeMov(registerToString(ret), registerToString(r));
 }
 
 void GeneratorX86::genSpillStore(Type t, Register r, Register ret)
 {
-    dbg_print("gened spilstore: " << r.hintReg() << ret.hintSpill());
     writeMov(registerToString(ret), registerToString(r));
 }
 
@@ -130,11 +146,12 @@ void GeneratorX86::genFunctionCall(Type t, std::string id, Register ret, std::ve
 
     for (Register r : args)
     {
-        writeInst("push", registerToString(r));
+        writeInst("push", registerToString(r, m_registers));
     }
 
     writeInst("call", id);
-    writeInst("add", "esp", std::to_string(4 * args.size()));
+    if (args.size())
+        writeInst("add", "esp", std::to_string(4 * args.size()));
     writeMov(registerToString(ret), "eax");
 
     // Pop all previously saved registers

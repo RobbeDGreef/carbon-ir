@@ -43,7 +43,14 @@ std::string GeneratorX86::registerToString(Register r, std::string *list)
     if (r.hintReg() != -1)
     {
         if (!list)
-            list = m_registers;
+        {
+            if (r.type().byteSize() == 1 && !r.type().ptr())
+                list = m_loByteRegs;
+            else if (r.type().byteSize() == 2 && !r.type().ptr())
+                list = m_shortRegs;
+            else
+                list = m_registers;
+        }
 
         return list[r.hintReg()];
     }
