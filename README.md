@@ -53,6 +53,9 @@ As you can see when you compile C or any other language to carbon-ir
 you don't have to worry about allocating variables and carbon will 
 handle all register allocation and spills for you.
 
+For all the other operations and info check the operations.md in the
+docs folder
+
 ## Usage
 The most basic usage of carbon would be:
 
