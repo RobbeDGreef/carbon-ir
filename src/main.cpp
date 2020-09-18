@@ -12,6 +12,8 @@
 #include <arch/jvm/optimizer.h>
 #include <arch/Z80/generator.h>
 #include <arch/Z80/optimizer.h>
+#include <arch/aarch64/generator.h>
+#include <arch/aarch64/optimizer.h>
 
 std::string genTemp()
 {
@@ -105,6 +107,12 @@ int main(int argc, char **argv)
 
     switch (machine[0])
     {
+    case 'a':
+        if (!machine.compare("aarch64") || !machine.compare("armv8"))
+        {
+            generator = new GeneratorAARCH64(asmFile);
+            optimizer = new OptimizerAARCH64();
+        }
     case 'x':
         if (!machine.compare("x86"))
         {
