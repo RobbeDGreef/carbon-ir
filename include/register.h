@@ -28,6 +28,7 @@ public:
     int hintReg() { return m_hintReg; }
     bool spilled() { return m_spilled; }
     int hintSpill() { return m_hintSpill; }
+    Type type() { return m_type; }
 
     void setVirt(int v) { m_virt = v; }
     void setHintReg(int r) { m_hintReg = r; }
