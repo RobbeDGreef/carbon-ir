@@ -39,30 +39,30 @@ be set to the type of the other registers.
 ### add
 The add operation will add the content of the first register to that of the second register.
 
-C equivalent: `a = b + c`;
+C equivalent: `c = a + b`;
 
 ### sub
-The sub operation will subtract the content of the first register with that of the second register.
+The sub operation will subtract the content the second register from that of the first register.
 
-C equivalent: `a = b - c`;
+C equivalent: `c = a - b`;
 
 ### mul
 The mul operation will multiply the content of the first register with that of the
 second register.
 
-C equivalent: `a = b * c`;
+C equivalent: `c = a * b`;
 
 ### div
 The div operation will divide the content of the first register with that of the
 second register.
 
-C equivalent: `a = b / c`;
+C equivalent: `c = a / b`;
 
 ### mod
 The mod operation will divide the content of the first register with that of the second
 register and return the remainder to the returning register.
 
-C equivalent: `a = b % c`;
+C equivalent: `c = a % b`;
 
 ## Memory operations
 ### alloca
@@ -158,15 +158,15 @@ The type of the return, the type of the function and the type of the register mu
 all match.
 
 ### call operation
-The call operation can invoke a specified function and store its result.
+The call operation can invoke a specified function and store its return value in a register.
 
 e.g.
 
-    %1 = i32 7
-    %2 = call i32 foo(%0)
+    %0 = i32 7
+    %1 = call i32 foo(%0)
 
 In this example the function foo is called with one argument (%0) and the result of 
-the function will be stored in register 2. The type of the function and the call 
+the function will be stored in register 1. The type of the function and the call 
 operation have to match.
 
 ## Flowcontrol and comparison
@@ -185,8 +185,8 @@ e.g.
 This example will create an infinite loop (see the jmp operation section)
 
 ### cmp operation
-The cmp operation will compare the first regsiter with the second and will, based on
-the comparison operation specified, store 1 (true) or 0 (false) in the resulting regsiter
+The cmp operation will compare the first register with the second and will, based on
+the comparison operation specified, store 1 (true) or 0 (false) in the resulting register
 
 e.g.
 
