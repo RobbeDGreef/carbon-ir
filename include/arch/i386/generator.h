@@ -38,6 +38,7 @@ class GeneratorX86 : public Generator
 {
 private:
     std::string m_loByteRegs[REGAMOUNT] = {"al", "bl", "cl", "dl"};
+    std::string m_shortRegs[REGAMOUNT] = {"ax", "bx", "cx", "dx"};
     std::string m_registers[REGAMOUNT] = {"eax", "ebx", "ecx", "edx" /*, "esi", "edi" */};
     std::string m_cmpOps[CMPOPAMOUNT] = {"e", "ne", "le", "l", "ge", "g"};
     int m_textSection = DATASECTION + 1;
