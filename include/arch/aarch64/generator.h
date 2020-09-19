@@ -51,6 +51,4 @@ public:
     int assemble(std::string infile, std::string outfile, std::string assembler);
     int link(std::string infile, std::string outfile, std::string linker);
 
-public:
-    GeneratorAARCH64(std::string outfile) : Generator(outfile) {}
 };

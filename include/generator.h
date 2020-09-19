@@ -11,7 +11,6 @@
 class Generator
 {
 protected:
-    FILE *m_outfile = nullptr;
     std::vector<std::string> m_internalOutBuf;
 
     RegisterList m_regData;
@@ -78,10 +77,10 @@ public:
     virtual void feedGenerate(OpList list);
 
 public:
-    Generator(std::string outfile);
+    Generator() {}
 
     void setRegList(RegisterList list);
-    void writeOutfile();
+    void writeOutfile(std::string outfile);
     Register &findReg(int r);
 
 public:

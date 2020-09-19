@@ -93,7 +93,4 @@ public:
     /// This function is currently only used to subtract from esp in the beginning
     /// of code generation.
     void feedGenerate(OpList list);
-
-public:
-    GeneratorX86(std::string outfile) : Generator(outfile) {}
 };

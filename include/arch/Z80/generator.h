@@ -65,6 +65,4 @@ public:
     int assemble(std::string infile, std::string outfile, std::string assembler) { return 0; }
     int link(std::string infile, std::string outfile, std::string linker) { return 0; }
 
-public:
-    GeneratorZ80(std::string outfile) : Generator(outfile) {}
 };
