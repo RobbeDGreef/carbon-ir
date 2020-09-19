@@ -6,14 +6,7 @@
 #include <scanner.h>
 #include <parser.h>
 
-#include <arch/i386/generator.h>
-#include <arch/i386/optimizer.h>
-#include <arch/jvm/generator.h>
-#include <arch/jvm/optimizer.h>
-#include <arch/Z80/generator.h>
-#include <arch/Z80/optimizer.h>
-#include <arch/aarch64/generator.h>
-#include <arch/aarch64/optimizer.h>
+#include <machine.h>
 
 std::string genTemp()
 {
@@ -126,37 +119,7 @@ int main(int argc, char **argv)
     if (f_onlyAssemble)
         linkFile = outfile;
 
-    switch (machine[0])
-    {
-    case 'a':
-        if (!machine.compare("aarch64") || !machine.compare("armv8"))
-        {
-            generator = new GeneratorAARCH64(asmFile);
-            optimizer = new OptimizerAARCH64();
-        }
-    case 'x':
-        if (!machine.compare("x86"))
-        {
-            generator = new GeneratorX86(asmFile);
-            optimizer = new OptimizerX86();
-        }
-        break;
-
-    case 'j':
-        if (!machine.compare("jvm"))
-        {
-            generator = new GeneratorJVM(asmFile, outfile);
-            optimizer = new OptimizerJVM();
-        }
-        break;
-
-    case 'e':
-        if (!machine.compare("Z80"))
-        {
-            generator = new GeneratorZ80(asmFile);
-            optimizer = new OptimizerZ80();
-        }
-    }
+    std::tie(generator, optimizer) = getMachine(machine, asmFile, outfile);
 
     if (generator == nullptr || optimizer == nullptr)
         g_errsys.fatal("unknown machine type '" + machine + "'");
