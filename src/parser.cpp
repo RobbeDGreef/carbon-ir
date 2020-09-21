@@ -384,7 +384,7 @@ OpList Parser::parseFunction()
     m_scanner.scan();
 
     m_regList.clear();
-    m_generator->genFunction(t, m_functions.back());
+    m_generator->genFunction(m_functions.back());
     return statements;
 }
 

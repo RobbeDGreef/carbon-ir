@@ -44,7 +44,7 @@ protected:
     virtual void genCmp(Type t, int op, Register r1, Register r2, Register ret) {}
 
 public:
-    virtual void genFunction(Type t, Function f) {}
+    virtual void genFunction(Function f) {}
     virtual void genGlobalVariable(std::string name, ArrayType t, std::vector<LARGEINT> init) {}
     virtual void genSetupFile(std::string file) {}
     virtual void genExternSymbol(std::string sym) {}

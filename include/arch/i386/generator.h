@@ -81,7 +81,7 @@ protected:
 
 public:
     void genSetupFile(std::string file);
-    void genFunction(Type t, Function func);
+    void genFunction(Function func);
     void genGlobalVariable(std::string name, ArrayType t, std::vector<LARGEINT> init);
     void genExternSymbol(std::string sym);
 

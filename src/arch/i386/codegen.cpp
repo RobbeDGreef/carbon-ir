@@ -87,7 +87,7 @@ void GeneratorX86::genMod(Type t, Register r1, Register r2, Register ret)
     genIDiv(t, r1, r2, ret, "edx");
 }
 
-void GeneratorX86::genFunction(Type t, Function f)
+void GeneratorX86::genFunction(Function f)
 {
     if (f.attributes().getBoolValueOf("global") == true)
         write("[global " + f.name() + "]");
