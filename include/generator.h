@@ -80,7 +80,7 @@ public:
     Generator() {}
 
     void setRegList(RegisterList list);
-    void writeOutfile(std::string outfile);
+    int writeOutfile(std::string outfile);
     Register &findReg(int r);
 
 public:

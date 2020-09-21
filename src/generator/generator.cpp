@@ -1,17 +1,21 @@
 #include <generator.h>
 #include <debug.h>
 
-void Generator::writeOutfile(std::string outfile)
+int Generator::writeOutfile(std::string outfile)
 {
     FILE *fp = fopen(outfile.c_str(), "w+");
     if (!fp)
+    {
         g_errsys.fatal("could not open output file '" + outfile + "'");
+        return -1;
+    }
 
     for (std::string s : m_internalOutBuf)
     {
         fprintf(fp, "%s\n", s.c_str());
     }
     fflush(fp);
+    return 0;
 }
 
 void Generator::write(std::string s)
