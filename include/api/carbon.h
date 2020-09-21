@@ -42,7 +42,7 @@ int c_reg(struct cfunc f, int r, struct ctype t);
 
 /* Create a function object */
 struct cfunc c_create_func(struct carbon carb, const char *name, struct ctype rettype,
-                           int argc, void *arglist);
+                           int argc, struct ctype *arglist);
 void c_destroy_func(struct cfunc func);
 
 /* Add attribute functions */

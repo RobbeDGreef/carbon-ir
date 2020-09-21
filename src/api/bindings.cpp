@@ -31,7 +31,7 @@ void end_carbon(struct carbon carb)
 }
 
 struct cfunc c_create_func(struct carbon carb, const char *name, struct ctype t, int argc,
-                           void *arglist)
+                           struct ctype *arglist)
 {
     struct cfunc func;
 
@@ -42,7 +42,7 @@ struct cfunc c_create_func(struct carbon carb, const char *name, struct ctype t,
     Function fobj = Function(std::string(name), Type(t));
     for (int i = 0; i < argc; ++i)
     {
-        Type arg = Type(((struct ctype *)arglist)[i]);
+        Type arg = Type(arglist[i]);
         fobj.args().push_back(arg);
     }
 
