@@ -45,6 +45,8 @@ private:
 public:
     Parser(Scanner &scan, Generator *gen, Optimizer *opt, std::string asmFile);
     Parser(Generator *gen, Optimizer *opt);
+    Generator *generator() { return m_generator; }
+    Optimizer *optimizer() { return m_optimizer; }
     void parse();
     int addFunction(Function func);
 };
