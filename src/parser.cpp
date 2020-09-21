@@ -419,9 +419,15 @@ std::vector<LARGEINT> Parser::parseArrayInit(int amount)
     return init;
 }
 
-void Parser::parse()
+void Parser::parseGlobal()
 {
-    m_generator->genSetupFile(m_scanner.getFileName());
+    std::string id = m_scanner.token().identifier();
+    m_scanner.scan();
+    m_scanner.match(Token::Types::EQUALSIGN);
+    ArrayType t = parseArrayType();
+    std::vector<LARGEINT> init = parseArrayInit(t.arrSize());
+    m_generator->genGlobalVariable(id, t, init);
+}
 
     int tok;
     while ((tok = m_scanner.scan().token()) != EOF)

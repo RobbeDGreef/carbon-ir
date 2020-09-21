@@ -35,9 +35,8 @@ private:
     OpQuad *parseJmp();
     OpQuad *parseCmp();
     OpList parseFunction();
-    Type parseType();
-    ArrayType parseArrayType();
-    std::vector<LARGEINT> parseArrayInit(int amount);
+    
+    void parseGlobal();
 
     int addRegister(int r, Type t);
 
