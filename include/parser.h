@@ -21,6 +21,10 @@ private:
     std::string m_asmFile;
 
 private:
+    Type parseType();
+    ArrayType parseArrayType();
+    std::vector<LARGEINT> parseArrayInit(int amount);
+    
     int parsePrimary(Type t, bool shouldBeReg = false);
     OpQuad *parseBinOperator();
     OpQuad *parseOperation();
@@ -40,15 +44,17 @@ private:
     
     void parseGlobal();
 
-    int addRegister(int r, Type t);
 
 public:
     Parser(Scanner &scan, Generator *gen, Optimizer *opt, std::string asmFile);
     Parser(Generator *gen, Optimizer *opt);
+    
     Generator *generator() { return m_generator; }
     Optimizer *optimizer() { return m_optimizer; }
     std::vector<Function> &functions() { return m_functions; }
 
     void parse();
     int addFunction(Function func);
+    int addRegister(int r, Type t);
+    void generateFunction(OpList statements);
 };
