@@ -33,6 +33,7 @@ public:
     Token &match(int tok1, int tok2);
     Token &scanUntil(int tok);
     Scanner(std::string openfile);
+    Scanner() {}
 
 public:
     Token &token() { return m_token; }
