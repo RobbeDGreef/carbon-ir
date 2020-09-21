@@ -47,6 +47,8 @@ public:
     Parser(Generator *gen, Optimizer *opt);
     Generator *generator() { return m_generator; }
     Optimizer *optimizer() { return m_optimizer; }
+    std::vector<Function> &functions() { return m_functions; }
+
     void parse();
     int addFunction(Function func);
 };
