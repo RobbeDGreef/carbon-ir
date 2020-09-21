@@ -6,7 +6,10 @@
 #include <generator.h>
 #include <optimizer/optimizer.h>
 
+struct ctype __i64_type = {.byte_size = 8, .ptr = 0, .is_float = 0};
 struct ctype __i32_type = {.byte_size = 4, .ptr = 0, .is_float = 0};
+struct ctype __i16_type = {.byte_size = 2, .ptr = 0, .is_float = 0};
+struct ctype __i8_type = {.byte_size = 1, .ptr = 0, .is_float = 0};
 
 struct carbon init_carbon(const char *infile, const char *arch)
 {

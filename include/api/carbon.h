@@ -25,9 +25,15 @@ struct ctype
     int is_float;
 };
 
+extern struct ctype __i64_type;
 extern struct ctype __i32_type;
-#define CTYPE_I32 __i32_type
+extern struct ctype __i16_type;
+extern struct ctype __i8_type;
 
+#define CTYPE_I64 __i64_type
+#define CTYPE_I32 __i32_type
+#define CTYPE_I16 __i16_type
+#define CTYPE_I7  __i8_type
 
 /* Initialisation and end of carbon */  
 struct carbon init_carbon(const char *infile, const char *arch);
