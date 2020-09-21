@@ -1,11 +1,12 @@
 #include <parser.h>
 #include <attributes.h>
 
-Parser::Parser(Scanner &scan, Generator *gen, Optimizer *opt)
+Parser::Parser(Scanner &scan, Generator *gen, Optimizer *opt, std::string asmfile)
     : m_scanner(scan)
 {
     m_generator = gen;
     m_optimizer = opt;
+    m_asmFile = asmfile;
 }
 
 Parser::Parser(Generator *gen, Optimizer *opt)

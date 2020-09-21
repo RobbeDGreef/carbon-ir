@@ -18,6 +18,8 @@ private:
     RegisterList m_regList;
     std::vector<Function> m_functions;
 
+    std::string m_asmFile;
+
 private:
     int parsePrimary(Type t, bool shouldBeReg = false);
     OpQuad *parseBinOperator();
@@ -41,6 +43,7 @@ private:
     int addRegister(int r, Type t);
 
 public:
+    Parser(Scanner &scan, Generator *gen, Optimizer *opt, std::string asmFile);
     Parser(Generator *gen, Optimizer *opt);
     void parse();
     int addFunction(Function func);
