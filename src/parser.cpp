@@ -467,7 +467,7 @@ void Parser::parseGlobal()
         }
     }
 
-    m_generator->writeOutfile();
+    m_generator->writeOutfile(m_asmFile);
     dbg_print("end");
 }
 
