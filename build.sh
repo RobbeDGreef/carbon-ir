@@ -1,6 +1,5 @@
 cd build
 
-cmake ..
+cmake .. -DEXEC:BOOL=true
 make
 mv carbon-ir ../
-
