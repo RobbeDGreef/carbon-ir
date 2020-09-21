@@ -430,37 +430,36 @@ void Parser::parseGlobal()
     m_generator->genGlobalVariable(id, t, init);
 }
 
+void Parser::generateFunction(OpList statements)
+{
+    statements = m_optimizer->optimize(statements);
+    if (m_generator->shouldAllocateRegisters())
+        m_optimizer->assignRegisters(statements, m_generator);
+    m_generator->setRegList(statements.regList());
+    dbg_call(statements.print());
+    m_generator->feedGenerate(statements);
+    statements.destroy();
+}
+
+void Parser::parse()
+{
+    m_generator->genSetupFile(m_scanner.getFileName());
+    
     int tok;
     while ((tok = m_scanner.scan().token()) != EOF)
     {
         if (tok == Token::Types::FUNCTION)
-        {
-            OpList statements = parseFunction();
-            statements = m_optimizer->optimize(statements);
-            if (m_generator->shouldAllocateRegisters())
-                m_optimizer->assignRegisters(statements, m_generator);
-            m_generator->setRegList(statements.regList());
-            dbg_call(statements.print();)
-                m_generator->feedGenerate(statements);
-            statements.destroy();
-        }
+            generateFunction(parseFunction());
+
         else if (tok == Token::Types::GLOB)
-        {
-            std::string id = m_scanner.token().identifier();
-            m_scanner.scan();
-            m_scanner.match(Token::Types::EQUALSIGN);
-            ArrayType t = parseArrayType();
-            std::vector<LARGEINT> init = parseArrayInit(t.arrSize());
-            m_generator->genGlobalVariable(id, t, init);
-        }
+            parseGlobal();
+
         else if (tok == Token::Types::EXTERN)
         {
             /// @todo: actually parse extern functions and store them
             m_scanner.scan();
             m_scanner.match(Token::Types::FUNCTION);
-            dbg_print("no");
             parseType();
-            dbg_print("yes");
             m_generator->genExternSymbol(m_scanner.token().identifier());
             m_scanner.scanUntil(Token::Types::RPAREN);
             m_scanner.scan();
