@@ -3,6 +3,8 @@
 #include <core.h>
 #include <config.h>
 
+struct ctype;
+
 class Type
 {
 private:
@@ -16,6 +18,7 @@ public:
     int ptr() { return m_ptr; }
     void setPtr(int ptr) { m_ptr = ptr; }
     Type() {}
+    Type(struct ctype t);
     Type(int bytesize, bool isFloat = false)
     {
         m_byteSize = bytesize;
