@@ -11,7 +11,7 @@
 class Parser
 {
 private:
-    Scanner &m_scanner;
+    Scanner m_scanner;
     Generator *m_generator;
     Optimizer *m_optimizer;
 
