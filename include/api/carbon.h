@@ -20,9 +20,9 @@ struct cfunc
 
 struct ctype
 {
-    int byteSize;
+    int byte_size;
     int ptr;
-    int isFloat;
+    int is_float;
 };
 
 extern struct ctype __i32_type;

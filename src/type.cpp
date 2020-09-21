@@ -3,7 +3,7 @@
 
 Type::Type(struct ctype t)
 {
-    m_byteSize = t.byteSize;
+    m_byteSize = t.byte_size;
     m_ptr = t.ptr;
-    m_isFloat = t.isFloat;
+    m_isFloat = t.is_float;
 }

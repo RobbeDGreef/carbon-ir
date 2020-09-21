@@ -14,7 +14,7 @@ private:
     int m_ptr = 0;
 
 public:
-    int byteSize() { return m_byteSize; }
+    int byte_size() { return m_byteSize; }
     int ptr() { return m_ptr; }
     void setPtr(int ptr) { m_ptr = ptr; }
     Type() {}
