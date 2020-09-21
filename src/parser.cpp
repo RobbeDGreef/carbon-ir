@@ -469,3 +469,9 @@ void Parser::parseGlobal()
     m_generator->writeOutfile();
     dbg_print("end");
 }
+
+int Parser::addFunction(Function f)
+{
+    m_functions.push_back(f);
+    return m_functions.size() - 1;
+}

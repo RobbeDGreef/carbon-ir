@@ -43,4 +43,5 @@ private:
 public:
     Parser(Generator *gen, Optimizer *opt);
     void parse();
+    int addFunction(Function func);
 };
