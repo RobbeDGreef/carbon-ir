@@ -1,7 +1,7 @@
 SOURCES = $(wildcard *.c)
 OBJECTS = $(patsubst %.c,%,$(SOURCES))
 
-CFLAGS += -I ../../include -L/home/robbe/Projects/ir/build/ -static
+CFLAGS += -I ../../include -L/home/robbe/Projects/ir/ -static
 
 all: $(OBJECTS)
 
