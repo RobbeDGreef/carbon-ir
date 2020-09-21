@@ -66,7 +66,7 @@ void OpList::updateRegisterLifetime(OpQuad *quad, int line)
     }
 
     if (quad->ret() != -1)
-            m_list[quad->ret()].setLastOcc(line);
+        m_list[quad->ret()].setLastOcc(line);
 }
 
 void OpList::push_back(OpQuad *quad)
