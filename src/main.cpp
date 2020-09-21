@@ -35,6 +35,7 @@ void printHelp()
     exit(0);
 }
 
+#ifdef __EXEC
 int main(int argc, char **argv)
 {
     int opt;
@@ -119,7 +120,7 @@ int main(int argc, char **argv)
     if (f_onlyAssemble)
         linkFile = outfile;
 
-    std::tie(generator, optimizer) = getMachine(machine, asmFile, outfile);
+    std::tie(generator, optimizer) = getMachine(machine);
 
     if (generator == nullptr || optimizer == nullptr)
         g_errsys.fatal("unknown machine type '" + machine + "'");
@@ -127,7 +128,7 @@ int main(int argc, char **argv)
     for (; optind < argc; optind++)
     {
         Scanner scanner = Scanner(std::string(argv[optind]));
-        Parser parser = Parser(scanner, generator, optimizer);
+        Parser parser = Parser(scanner, generator, optimizer, asmFile);
         parser.parse();
     }
 
@@ -151,3 +152,4 @@ end:
 
     return 0;
 }
+#endif
