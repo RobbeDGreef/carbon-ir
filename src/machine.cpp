@@ -1,12 +1,10 @@
 #include <core.h>
 
 #include <generator.h>
-#include <optimizer.h>
+#include <optimizer/optimizer.h>
 
 #include <arch/i386/generator.h>
 #include <arch/i386/optimizer.h>
-#include <arch/jvm/generator.h>
-#include <arch/jvm/optimizer.h>
 #include <arch/Z80/generator.h>
 #include <arch/Z80/optimizer.h>
 #include <arch/aarch64/generator.h>
