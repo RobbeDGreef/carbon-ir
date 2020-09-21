@@ -42,6 +42,6 @@ private:
     int addRegister(int r, Type t);
 
 public:
-    Parser(Scanner &scan, Generator *gen, Optimizer *opt);
+    Parser(Generator *gen, Optimizer *opt);
     void parse();
 };

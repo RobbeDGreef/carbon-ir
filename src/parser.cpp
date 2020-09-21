@@ -8,6 +8,12 @@ Parser::Parser(Scanner &scan, Generator *gen, Optimizer *opt)
     m_optimizer = opt;
 }
 
+Parser::Parser(Generator *gen, Optimizer *opt)
+{
+    m_generator = gen;
+    m_optimizer = opt;
+}
+
 Type Parser::parseType()
 {
     Type t;
