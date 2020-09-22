@@ -110,6 +110,6 @@ Here follows a simple example of the carbon C API.
         end_carbon(carb);
     }
 
-The API is very simple and everything can be accessed by including the <api/carbon.h> file
-most features of the carbon language are included in the API, if not, leave an issue and
+The API is very simple and everything can be accessed by including the <api/carbon.h> file.
+Most features of the carbon language are included in the API, if not, leave an issue and
 I will implement it as fast as I can.
