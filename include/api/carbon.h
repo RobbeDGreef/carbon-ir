@@ -44,7 +44,7 @@ struct carbon init_carbon(const char *infile, const char *arch);
 void end_carbon(struct carbon carb);
 
 /* Generation functions */
-void c_gen_glob(const char *name, struct ctype t, int init_count, void *initlist);
+void c_gen_glob(struct carbon carb, const char *name, struct ctype t, int init_count, void *initlist);
 void c_gen_func(struct cfunc func);
 void c_push_op(struct cfunc func, int op, int ar1, int ar2, int ret, struct ctype t);
 

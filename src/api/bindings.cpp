@@ -69,6 +69,20 @@ void c_gen_func(struct cfunc f)
     f.__parser->generateFunction(*f.__statements);
 }
 
+void c_gen_glob(struct carbon carb, const char *name, struct ctype t, int init_count,
+                void *intlist)
+{
+    std::vector<LARGEINT> inits;
+    ArrayType artype(Type(t), init_count);
+
+    for (int i = 0; i < init_count; ++i)
+    {
+        inits.push_back(((LARGEINT*) intlist)[i]);
+    }
+    
+    carb.__parser->generator()->genGlobalVariable(std::string(name), artype, inits);
+}
+
 void c_push_op(struct cfunc func, int op, int ar1, int ar2, int ret, struct ctype t)
 {
     OpQuad *quad = new OpQuad(op, ar1, ar2, ret, Type(t));
