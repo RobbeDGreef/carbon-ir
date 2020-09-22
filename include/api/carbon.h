@@ -1,5 +1,9 @@
 #pragma once
 
+#include <config.h>
+#include <stdint.h>
+#include <api/ops.h>
+
 #ifdef __cplusplus
 extern "C"
 {
