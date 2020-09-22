@@ -109,11 +109,11 @@ OpQuad *Parser::parseInitialize()
 
     OpQuad *quad;
     if (m_scanner.token().token() == Token::Types::INTLIT)
-        quad = new OpQuad(OpQuad::Types::INTLIT, m_scanner.token().intValue(), t);
+        quad = new OpQuad(OpTypes::INTLIT, m_scanner.token().intValue(), t);
 
     else if (m_scanner.token().token() == Token::Types::GLOB)
     {
-        quad = new OpQuad(OpQuad::Types::GLOB, t);
+        quad = new OpQuad(OpTypes::GLOB, t);
         quad->setIdentifier(m_scanner.token().identifier());
     }
     else
@@ -128,7 +128,7 @@ OpQuad *Parser::parseFunctionCall()
     m_scanner.scan();
     Type t = parseType();
 
-    OpQuad *quad = new OpQuad(OpQuad::Types::CALL, t);
+    OpQuad *quad = new OpQuad(OpTypes::CALL, t);
 
     std::string id = m_scanner.match(Token::Types::IDENTIFIER).identifier();
     quad->setIdentifier(id);
@@ -159,12 +159,12 @@ OpQuad *Parser::parseLoad()
     {
         int r = m_scanner.token().intValue();
         r = addRegister(r, t);
-        quad = new OpQuad(OpQuad::Types::LOAD, r, t);
+        quad = new OpQuad(OpTypes::LOAD, r, t);
     }
     else if (m_scanner.token().token() == Token::Types::GLOB)
     {
         std::string id = m_scanner.token().identifier();
-        quad = new OpQuad(OpQuad::Types::LOAD, t);
+        quad = new OpQuad(OpTypes::LOAD, t);
         quad->setIdentifier(id);
     }
     else
@@ -180,7 +180,7 @@ OpQuad *Parser::parseStore()
     m_scanner.scan();
     Type t = parseType();
 
-    OpQuad *quad = new OpQuad(OpQuad::Types::STORE, t);
+    OpQuad *quad = new OpQuad(OpTypes::STORE, t);
     if (m_scanner.token().token() == Token::Types::REG)
     {
         int r1 = m_scanner.token().intValue();
@@ -207,14 +207,14 @@ OpQuad *Parser::parseAlloca()
     m_scanner.scan();
     Type t = parseType();
     int r = m_scanner.match(Token::Types::REG).intValue();
-    return new OpQuad(OpQuad::Types::ALLOCA, addRegister(r, t), t);
+    return new OpQuad(OpTypes::ALLOCA, addRegister(r, t), t);
 }
 
 OpQuad *Parser::parseJmp()
 {
     std::string id = m_scanner.scan().identifier();
     m_scanner.match(Token::Types::IDENTIFIER);
-    return new OpQuad(OpQuad::Types::JMP, id);
+    return new OpQuad(OpTypes::JMP, id);
 }
 
 OpQuad *Parser::parseCmp()
@@ -227,7 +227,7 @@ OpQuad *Parser::parseCmp()
     int r2 = addRegister(m_scanner.token().intValue(), t);
     m_scanner.match(Token::Types::REG);
 
-    OpQuad *quad = new OpQuad(OpQuad::Types::CMP, r1, r2, -1, t);
+    OpQuad *quad = new OpQuad(OpTypes::CMP, r1, r2, -1, t);
     quad->setExtra(op - Token::Types::EQ);
     return quad;
 }
@@ -279,7 +279,7 @@ OpQuad *Parser::parseJmpCond()
     std::string id = m_scanner.token().identifier();
     m_scanner.match(Token::Types::IDENTIFIER);
     /// @todo: check if this is a valid label
-    OpQuad *quad = new OpQuad(OpQuad::Types::JMPCOND, r1, r2, -1, t);
+    OpQuad *quad = new OpQuad(OpTypes::JMPCOND, r1, r2, -1, t);
     quad->setExtra(op - Token::Types::EQ);
     quad->setIdentifier(id);
 
@@ -291,14 +291,14 @@ OpQuad *Parser::parseLabel()
     std::string id = m_scanner.token().identifier();
     m_scanner.scan();
     m_scanner.match(Token::Types::COLON);
-    return new OpQuad(OpQuad::LABEL, id);
+    return new OpQuad(OpTypes::LABEL, id);
 }
 
 OpQuad *Parser::parseReturn()
 {
     m_scanner.scan();
     Type type = parseType();
-    OpQuad *quad = new OpQuad(OpQuad::Types::RETURN, type);
+    OpQuad *quad = new OpQuad(OpTypes::RETURN, type);
     quad->setArg1(addRegister(parsePrimary(type, true), type));
     m_scanner.scan();
     return quad;
@@ -355,7 +355,7 @@ OpList Parser::parseFunction()
         Type t = parseType();
         m_functions.back().args().push_back(t);
         int reg = statements.regList().addRegister(m_scanner.token().intValue(), t);
-        m_scanner.match(OpQuad::Types::REG);
+        m_scanner.match(OpTypes::REG);
         Register &r = statements.regList()[reg];
         r.setFirstOcc(0);
         r.setSpilled(true);

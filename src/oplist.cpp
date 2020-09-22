@@ -3,7 +3,7 @@
 
 int OpQuad::tokToOp(int tok)
 {
-    if (tok <= Types::ASSIGN && tok > 0)
+    if (tok <= OpTypes::ASSIGN && tok > 0)
         return tok;
 
     dbg_assert(0);
@@ -49,10 +49,10 @@ void OpList::updateRegisterLifetime(OpQuad *quad, int line)
 {
     switch (quad->operation())
     {
-    case OpQuad::Types::INTLIT:
+    case OpTypes::INTLIT:
         break;
     
-    case OpQuad::Types::CALL:
+    case OpTypes::CALL:
         for (int r : quad->extraArgs())
             m_list[r].setLastOcc(line);
         

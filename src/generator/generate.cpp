@@ -5,35 +5,35 @@ void Generator::generate(OpQuad *op)
 {
     switch (op->operation())
     {
-    case OpQuad::Types::INTLIT:
+    case OpTypes::INTLIT:
         genIntlitLoad(op->type(), op->arg1(), findReg(op->ret()));
         break;
 
-    case OpQuad::Types::GLOB:
+    case OpTypes::GLOB:
         genGlobLoad(op->type(), op->identifier(), findReg(op->ret()));
         break;
 
-    case OpQuad::Types::MUL:
+    case OpTypes::MUL:
         genMul(op->type(), findReg(op->arg1()), findReg(op->arg2()), findReg(op->ret()));
         break;
-    case OpQuad::Types::ADD:
+    case OpTypes::ADD:
         genAdd(op->type(), findReg(op->arg1()), findReg(op->arg2()), findReg(op->ret()));
         break;
-    case OpQuad::Types::SUB:
+    case OpTypes::SUB:
         genSub(op->type(), findReg(op->arg1()), findReg(op->arg2()), findReg(op->ret()));
         break;
-    case OpQuad::Types::DIV:
+    case OpTypes::DIV:
         genDiv(op->type(), findReg(op->arg1()), findReg(op->arg2()), findReg(op->ret()));
         break;
-    case OpQuad::Types::MOD:
+    case OpTypes::MOD:
         genMod(op->type(), findReg(op->arg1()), findReg(op->arg2()), findReg(op->ret()));
         break;
 
-    case OpQuad::Types::REG:
+    case OpTypes::REG:
         genReg(op->type(), findReg(op->arg1()), findReg(op->ret()));
         break;
 
-    case OpQuad::Types::CALL:
+    case OpTypes::CALL:
     {
         std::vector<Register> args;
         for (int arg : op->extraArgs())
@@ -42,49 +42,49 @@ void Generator::generate(OpQuad *op)
     }
     break;
 
-    case OpQuad::Types::SPILLLOAD:
+    case OpTypes::SPILLLOAD:
         genSpillLoad(op->type(), findReg(op->arg1()), findReg(op->ret()));
         break;
 
-    case OpQuad::Types::SPILLSTORE:
+    case OpTypes::SPILLSTORE:
         genSpillStore(op->type(), findReg(op->arg1()), findReg(op->ret()));
         break;
 
-    case OpQuad::Types::ALLOCA:
+    case OpTypes::ALLOCA:
         genAlloca(op->type(), findReg(op->arg1()), findReg(op->ret()));
         break;
 
-    case OpQuad::Types::STORE:
+    case OpTypes::STORE:
         if (op->arg1() == -1)
             genStore(op->type(), op->identifier(), findReg(op->arg2()));
         else
             genStore(op->type(), findReg(op->arg1()), findReg(op->arg2()));
         break;
 
-    case OpQuad::Types::LOAD:
+    case OpTypes::LOAD:
         if (op->arg1() == -1)
             genLoad(op->type(), op->identifier(), findReg(op->ret()));
         else
             genLoad(op->type(), findReg(op->arg1()), findReg(op->ret()));
         break;
 
-    case OpQuad::Types::JMPCOND:
+    case OpTypes::JMPCOND:
         genJmpCond(op->type(), op->extra(), findReg(op->arg1()), findReg(op->arg2()), op->identifier());
         break;
 
-    case OpQuad::Types::LABEL:
+    case OpTypes::LABEL:
         genLabel(op->identifier());
         break;
 
-    case OpQuad::Types::JMP:
+    case OpTypes::JMP:
         genJmp(op->identifier());
         break;
 
-    case OpQuad::Types::CMP:
+    case OpTypes::CMP:
         genCmp(op->type(), op->extra(), findReg(op->arg1()), findReg(op->arg2()), findReg(op->ret()));
         break;
 
-    case OpQuad::Types::RETURN:
+    case OpTypes::RETURN:
         genReturn(op->type(), findReg(op->arg1()));
         break;
 

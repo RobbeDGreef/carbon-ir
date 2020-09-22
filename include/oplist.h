@@ -1,8 +1,10 @@
 #pragma once
 
+#ifdef __cplusplus
 #include <core.h>
 #include <register.h>
 #include <type.h>
+#endif
 
 static const char *OpNames[] =
     {
@@ -15,40 +17,42 @@ static const char *OpNames[] =
         "destroy register",
         "spill", "spillload",
 
-        "assign"};
+        "assign"
+    };
+
+enum OpTypes
+{
+    REG = 1,
+    INTLIT,
+    IDENTIFIER,
+    ADD,
+    SUB,
+    MUL,
+    DIV,
+    MOD,
+    CALL,
+    ALLOCA,
+    STORE,
+    LOAD,
+    JMP,
+    JMPCOND,
+    CMP,
+    RETURN,
+    FUNCTION,
+    LABEL,
+    DESTROYREG,
+    SPILL,
+    SPILLLOAD,
+    SPILLSTORE,
+    GLOB,
+
+    ASSIGN
+};
+
+#ifdef __cplusplus
 
 class OpQuad
 {
-public:
-    enum Types
-    {
-        REG = 1,
-        INTLIT,
-        IDENTIFIER,
-        ADD,
-        SUB,
-        MUL,
-        DIV,
-        MOD,
-        CALL,
-        ALLOCA,
-        STORE,
-        LOAD,
-        JMP,
-        JMPCOND,
-        CMP,
-        RETURN,
-        FUNCTION,
-        LABEL,
-        DESTROYREG,
-        SPILL,
-        SPILLLOAD,
-        SPILLSTORE,
-        GLOB,
-
-        ASSIGN
-    };
-
 private:
     int m_operation = -1;
     int m_arg1 = -1;
@@ -113,3 +117,5 @@ public:
     }
 #endif
 };
+
+#endif

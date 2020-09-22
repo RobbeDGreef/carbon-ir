@@ -16,13 +16,13 @@ bool OptimizerX86::graphCheck(RegisterGraph &graph)
             int line = 0;
             for (OpQuad *quad : tmp)
             {
-                if (quad->operation() != OpQuad::Types::INTLIT && quad->operation() != OpQuad::Types::SPILLSTORE && quad->operation() != OpQuad::Types::SPILLLOAD)
+                if (quad->operation() != OpTypes::INTLIT && quad->operation() != OpTypes::SPILLSTORE && quad->operation() != OpTypes::SPILLLOAD)
                 {
                     if (quad->arg1() == tosearch)
                     {
                         flag = true;
                         int last = graph.statements().regList().addRegister(graph.statements().regList().lastReg() + 1, quad->type());
-                        graph.statements().insert(line, new OpQuad(OpQuad::Types::SPILLLOAD, tosearch, -1, last, quad->type()));
+                        graph.statements().insert(line, new OpQuad(OpTypes::SPILLLOAD, tosearch, -1, last, quad->type()));
                         graph.statements().regList()[last].setLastOcc(line + 1);
                         quad->setArg1(last);
                         line++;
@@ -32,17 +32,17 @@ bool OptimizerX86::graphCheck(RegisterGraph &graph)
                     {
                         flag = true;
                         int last = graph.statements().regList().addRegister(graph.statements().regList().lastReg() + 1, quad->type());
-                        graph.statements().insert(line, new OpQuad(OpQuad::Types::SPILLLOAD, tosearch, -1, last, quad->type()));
+                        graph.statements().insert(line, new OpQuad(OpTypes::SPILLLOAD, tosearch, -1, last, quad->type()));
                         graph.statements().regList()[last].setLastOcc(line + 1);
                         quad->setArg2(last);
                         line++;
                     }
 
-                    if (quad->ret() == tosearch && tmp[line + 1]->operation() != OpQuad::Types::SPILLSTORE)
+                    if (quad->ret() == tosearch && tmp[line + 1]->operation() != OpTypes::SPILLSTORE)
                     {
                         flag = true;
                         int last = graph.statements().regList().addRegister(graph.statements().regList().lastReg() + 1, quad->type());
-                        graph.statements().insert(line + 1, new OpQuad(OpQuad::Types::SPILLSTORE, last, -1, tosearch, quad->type()));
+                        graph.statements().insert(line + 1, new OpQuad(OpTypes::SPILLSTORE, last, -1, tosearch, quad->type()));
                         graph.statements().regList()[last].setFirstOcc(line);
                         quad->setReturn(last);
                         line++;
