@@ -18,8 +18,8 @@ You can find more examples in the tests/capi/ folder.
 
         c_add_func_attribute(func, "global:true");
 
-        c_push_op(func, 2, 1, -1, c_reg(func, 0, CTYPE_I32), CTYPE_I32);
-        c_push_op(func, 16, c_reg(func, 0, CTYPE_I32), -1, -1, CTYPE_I32);
+        c_push_op(func, INTLIT, 1, -1, c_reg(func, 0, CTYPE_I32), CTYPE_I32);
+        c_push_op(func, RETURN, c_reg(func, 0, CTYPE_I32), -1, -1, CTYPE_I32);
 
         c_gen_func(func);
         c_destroy_func(func);
