@@ -89,6 +89,13 @@ void c_push_op(struct cfunc func, int op, int ar1, int ar2, int ret, struct ctyp
     func.__statements->push_back(quad);
 }
 
+void c_push_op_id(struct cfunc func, int op, int ar1, int ar2, int ret, const char *id, struct ctype t)
+{
+    OpQuad *quad = new OpQuad(op, ar1, ar2, ret, Type(t));
+    quad->setIdentifier(std::string(id));
+    func.__statements->push_back(quad);
+}
+
 int c_reg(struct cfunc f, int r, struct ctype t)
 {
     f.__statements->regList().addRegister(r, Type(t));
